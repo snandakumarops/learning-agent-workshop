@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2. Promote to Production — Agent &amp; App Development Workshop</title>
+    <style>
+        :root { --vp-c-brand: #0176d3; --vp-c-brand-dark: #014486; --vp-c-bg: #ffffff; --vp-c-bg-soft: #f6f6f7; --vp-c-text-1: #213547; --vp-c-text-2: #476582; --vp-c-text-3: #90a4ae; --vp-c-divider: #e2e2e3; --vp-c-tip: #0176d3; --vp-c-warning: #e9a211; --vp-c-success: #2e844a; --vp-sidebar-width: 272px; --vp-nav-height: 64px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; color: var(--vp-c-text-1); background: var(--vp-c-bg); line-height: 1.7; }
+        .vp-nav { position: fixed; top: 0; left: 0; right: 0; height: var(--vp-nav-height); background: var(--vp-c-bg); border-bottom: 1px solid var(--vp-c-divider); display: flex; align-items: center; padding: 0 24px; z-index: 100; }
+        .vp-nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--vp-c-text-1); font-weight: 600; font-size: 16px; }
+        .vp-layout { display: flex; margin-top: var(--vp-nav-height); min-height: calc(100vh - var(--vp-nav-height)); }
+        .vp-sidebar { position: fixed; top: var(--vp-nav-height); left: 0; width: var(--vp-sidebar-width); height: calc(100vh - var(--vp-nav-height)); overflow-y: auto; padding: 24px 20px; border-right: 1px solid var(--vp-c-divider); background: var(--vp-c-bg); }
+        .vp-sidebar-group { margin-bottom: 24px; }
+        .vp-sidebar-group-title { font-size: 13px; font-weight: 700; color: var(--vp-c-text-1); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 8px; padding: 4px 0; }
+        .vp-sidebar-items { list-style: none; }
+        .vp-sidebar-items a { display: block; padding: 6px 12px; font-size: 14px; color: var(--vp-c-text-2); text-decoration: none; border-radius: 6px; transition: all 0.15s; }
+        .vp-sidebar-items a:hover { background: var(--vp-c-bg-soft); color: var(--vp-c-text-1); }
+        .vp-sidebar-items a.active { background: rgba(1, 118, 211, 0.08); color: var(--vp-c-brand); font-weight: 600; }
+        .vp-content { margin-left: var(--vp-sidebar-width); flex: 1; max-width: 780px; padding: 32px 48px 96px; }
+        .vp-content h1 { font-size: 32px; font-weight: 700; line-height: 1.25; margin-bottom: 8px; letter-spacing: -0.02em; }
+        .vp-content h2 { font-size: 24px; font-weight: 600; margin-top: 48px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--vp-c-divider); }
+        .vp-content h3 { font-size: 18px; font-weight: 600; margin-top: 32px; margin-bottom: 12px; }
+        .vp-content p { margin-bottom: 16px; font-size: 15px; }
+        .vp-content ul, .vp-content ol { margin-bottom: 16px; padding-left: 24px; }
+        .vp-content li { margin-bottom: 8px; font-size: 15px; }
+        .vp-content code { font-family: 'SF Mono', 'Fira Code', Menlo, monospace; font-size: 13px; background: var(--vp-c-bg-soft); padding: 2px 6px; border-radius: 4px; color: var(--vp-c-brand-dark); }
+        .vp-content table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px; }
+        .vp-content th { background: var(--vp-c-bg-soft); padding: 10px 14px; text-align: left; font-weight: 600; border: 1px solid var(--vp-c-divider); }
+        .vp-content td { padding: 10px 14px; border: 1px solid var(--vp-c-divider); vertical-align: top; }
+        .vp-content tr:nth-child(even) td { background: var(--vp-c-bg-soft); }
+        .vp-time-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--vp-c-text-2); margin-bottom: 24px; }
+        .vp-callout { border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 14px; }
+        .vp-callout-title { font-weight: 700; margin-bottom: 6px; font-size: 14px; }
+        .vp-callout p { font-size: 14px; margin-bottom: 8px; }
+        .vp-callout p:last-child { margin-bottom: 0; }
+        .vp-callout.tip { background: rgba(1, 118, 211, 0.06); border-left: 4px solid var(--vp-c-tip); }
+        .vp-callout.tip .vp-callout-title { color: var(--vp-c-tip); }
+        .vp-callout.success { background: rgba(46, 132, 74, 0.06); border-left: 4px solid var(--vp-c-success); }
+        .vp-callout.success .vp-callout-title { color: var(--vp-c-success); }
+        .step-block { margin-bottom: 32px; }
+        .step-block h3 { display: flex; align-items: center; gap: 10px; }
+        .step-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--vp-c-brand); color: white; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+        .vp-pager { display: flex; justify-content: space-between; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--vp-c-divider); }
+        .vp-pager a { display: flex; flex-direction: column; padding: 12px 16px; border: 1px solid var(--vp-c-divider); border-radius: 8px; text-decoration: none; transition: border-color 0.2s; min-width: 200px; }
+        .vp-pager a:hover { border-color: var(--vp-c-brand); }
+        .vp-pager .pager-label { font-size: 11px; font-weight: 600; color: var(--vp-c-text-3); text-transform: uppercase; letter-spacing: 0.5px; }
+        .vp-pager .pager-title { font-size: 14px; font-weight: 500; color: var(--vp-c-brand); margin-top: 4px; }
+        .vp-pager .prev { text-align: left; }
+        .vp-pager .next { text-align: right; margin-left: auto; }
+        @media (max-width: 960px) { .vp-sidebar { display: none; } .vp-content { margin-left: 0; padding: 24px; } }
+    </style>
+</head>
+<body>
+<nav class="vp-nav">
+    <a href="index.html" class="vp-nav-brand">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" alt="Salesforce" height="24" style="height:24px;" />
+        Agent &amp; App Development Workshop
+    </a>
+</nav>
+<div class="vp-layout">
+    <aside class="vp-sidebar">
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Workshop</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="index.html" >Overview</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Before the Session</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="setup.html" >Setup</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Hands-On</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="inspect-app.html" >Inspect the App</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Solo Admin Path</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="add-picklist.html" >1. Add the Deferred Status</a></li>
+                <li><a href="promote-picklist.html" class="active">2. Promote to Production</a></li>
+            </ul>
+        </div>
+                <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Team Path</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="team-path.html" >The Team Path</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">AI-Accelerated Path</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="afv-walkthrough.html" >3. Agentforce Vibes Walkthrough</a></li>
+                <li><a href="build-leaderboard.html" >4. Build the Leaderboard</a></li>
+                <li><a href="deploy-verify.html" >5. Deploy &amp; Verify</a></li>
+                <li><a href="promote-to-prod.html" >6. Promote to Production</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Wrap Up</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="whats-next.html" >What's Next</a></li>
+                <li><a href="troubleshooting.html" >Troubleshooting</a></li>
+            </ul>
+        </div>
+    </aside>
+    <main class="vp-content">
+        <h1>Promote to Production</h1>
+        <div class="vp-time-badge">&#128339; <strong>10 minutes</strong></div>
+
+        <p>The Deferred status is live in the sandbox. Now we need to get it into production — safely, with full visibility into what's changing before anything is touched. That's where <strong>DX Inspector</strong> comes in.</p>
+
+        <h2>What is DX Inspector?</h2>
+
+        <p>DX Inspector is a browser-based tool that lets you compare and promote metadata between Salesforce environments. It shows you exactly what's different between your sandbox and production before you deploy anything.</p>
+
+        <h2>Open Change Management</h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">6</span> Open Change Management</h3>
+            <p>In your sandbox, click the <strong>Sandbox</strong> badge in the top-left corner to open DX Inspector (Change Management).</p>
+            <div style="margin-top: 12px;">
+                <img src="../images/promote-cm-empty.png" alt="DX Inspector Change Management panel showing the empty state with no metadata changes" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+            <div class="vp-callout tip" style="margin-top: 16px;">
+                <div class="vp-callout-title">Why is it empty?</div>
+                <p>Source tracking only runs automatically in Developer and Developer Pro sandboxes. In a <strong>fullcopy</strong> sandbox, you add the metadata you want to promote manually — that's the next step.</p>
+            </div>
+        </div>
+
+        <h2>Add the metadata to track</h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">7</span> Add the Status field</h3>
+            <p>Click <strong>Add Metadata</strong>. In the dialog, set <strong>Metadata Type</strong> to <code>CustomField</code>, type <code>enrollment</code> in the File Name search, then check <strong>Enrollment__c.Status__c</strong> and click <strong>Add</strong>.</p>
+            <div class="vp-callout tip" style="margin-top: 12px;">
+                <div class="vp-callout-title">Lookup not loading?</div>
+                <p>If the File Name lookup doesn't populate after you choose <code>CustomField</code>, close the dialog and click <strong>Add Metadata</strong> again.</p>
+            </div>
+            <div style="margin-top: 12px;">
+                <img src="../images/promote-add-metadata.png" alt="Add Metadata dialog filtered to CustomField and enrollment with Enrollment__c.Status__c selected" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+            <p style="margin-top: 12px;">The Status field now appears in Change Management with operation <code>MANUAL</code> — that's your one item to promote.</p>
+            <div style="margin-top: 12px;">
+                <img src="../images/promote-cm-tracked.png" alt="Change Management showing Enrollment__c.Status__c tracked as a manual change" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+        </div>
+
+        <h2>Connect to production</h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">8</span> Connect production (first time only)</h3>
+            <p>Select the <strong>Enrollment__c.Status__c</strong> row, then click <strong>Deploy Options</strong>. In the Deploy Changes dialog, click <strong>New Environment</strong>. Enter <strong>production</strong> as the Environment Name, leave <strong>Production org</strong> selected, and click <strong>Connect</strong>.</p>
+            <div style="margin-top: 12px;">
+                <img src="../images/promote-new-env.png" alt="Deploy Changes dialog on the New Environment tab with environment name production and Production org selected" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+            <p style="margin-top: 12px;">You'll be redirected to authenticate — log in with your <strong>production org credentials</strong> and click <strong>Allow</strong>.</p>
+            <div style="margin-top: 12px;">
+                <img src="../images/deploy-oauth.png" alt="Salesforce Allow Access OAuth screen for the production org" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+            <p style="margin-top: 12px;">Back in the Deploy Changes dialog, switch to <strong>Existing Environment</strong>. The <strong>production</strong> entry is now listed — select it and click <strong>Next</strong>.</p>
+            <div style="margin-top: 12px;">
+                <img src="../images/promote-existing-env.png" alt="Deploy Changes dialog on the Existing Environment tab with the production org selected" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+            <div class="vp-callout tip" style="margin-top: 16px;">
+                <div class="vp-callout-title">You only do this once</div>
+                <p>This production connection is saved. In Part 2, you'll skip straight to selecting the existing environment instead of going through the Connect flow again.</p>
+            </div>
+        </div>
+
+        <h2>Review and deploy</h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">9</span> Preview the diff and deploy</h3>
+            <p>The Preview screen shows the <strong>Source Org</strong> (your fullcopy sandbox) and the <strong>Target Org</strong> (production), with the single CustomField listed below: <code>Enrollment__c.Status__c</code>. This is the governance moment — exactly what's changing, nothing more.</p>
+            <div style="margin-top: 12px;">
+                <img src="../images/promote-preview.png" alt="Deploy Changes preview showing source sandbox to target production with the Status custom field listed" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+            <p style="margin-top: 12px;">Click <strong>Deploy</strong>. Once the deployment completes, open an Enrollment record in production and confirm <strong>Deferred</strong> is available in the Status dropdown.</p>
+        </div>
+
+        <div class="vp-callout success">
+            <div class="vp-callout-title">Part 1 complete</div>
+            <p>A business request went from conversation to production in under 25 minutes — through a sandbox, reviewed, and promoted with full visibility. No surprises, no shortcuts.</p>
+            <p>Now let's tackle the bigger ask.</p>
+        </div>
+
+        <nav class="vp-pager">
+            <a href="add-picklist.html" class="prev">
+                <span class="pager-label">Previous</span>
+                <span class="pager-title">1. Add the Deferred Status</span>
+            </a>
+            <a href="team-path.html" class="next">
+                <span class="pager-label">Next</span>
+                <span class="pager-title">The Team Path</span>
+            </a>
+        </nav>
+    </main>
+</div>
+</body>
+</html>

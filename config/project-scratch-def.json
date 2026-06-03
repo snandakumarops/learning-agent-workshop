@@ -1,0 +1,13 @@
+{
+  "orgName": "AAD Workshop",
+  "edition": "Developer",
+  "features": ["EnableSetPasswordInApi", "Sites"],
+  "settings": {
+    "lightningExperienceSettings": {
+      "enableS1DesktopEnabled": true
+    },
+    "mobileSettings": {
+      "enableS1EncryptedStoragePref2": false
+    }
+  }
+}

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>An employee-facing agent that answers questions about courses, students, and enrollments.</description>
+    <localTopicLinks>
+        <genAiPluginName>course_information_16jWt000000TkYv</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>enrollment_status_16jWt000000TkYv</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>escalation_16jWt000000TkYv</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>off_topic_16jWt000000TkYv</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>student_information_16jWt000000TkYv</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>topic_selector_16jWt000000TkYv</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>off_topic_16jWt000000TkYv</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Redirect conversation to relevant topics when user request goes off-topic</description>
+        <developerName>off_topic_16jWt000000TkYv</developerName>
+        <genAiPluginInstructions>
+            <description>You are a Learning Management assistant for employees. You help staff find information about available training courses, look up student records, and check enrollment status and progress. You provide clear, concise answers and proactively offer follow-up help.</description>
+            <developerName>instruction0_179Wt000000EHCM</developerName>
+            <language>en_US</language>
+            <masterLabel>instruction0_179Wt000000EHCM</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localDeveloperName>off_topic</localDeveloperName>
+        <masterLabel>Off Topic</masterLabel>
+        <pluginType>Topic</pluginType>
+    </localTopics>
+    <localTopics>
+        <fullName>course_information_16jWt000000TkYv</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Search for, browse, or get details about available training courses including category, format, and duration.</description>
+        <developerName>course_information_16jWt000000TkYv</developerName>
+        <genAiPluginInstructions>
+            <description>You are a Learning Management assistant for employees. You help staff find information about available training courses, look up student records, and check enrollment status and progress. You provide clear, concise answers and proactively offer follow-up help.</description>
+            <developerName>instruction0_179Wt000000EHCL</developerName>
+            <language>en_US</language>
+            <masterLabel>instruction0_179Wt000000EHCL</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>search_courses_179Wt000000EHCL</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>search_courses_179Wt000000EHCL</fullName>
+            <description>Search for courses by category or keyword</description>
+            <developerName>search_courses_179Wt000000EHCL</developerName>
+            <invocationTarget>LearningAgentActions</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+            <localDeveloperName>search_courses</localDeveloperName>
+            <masterLabel>Search Courses</masterLabel>
+        </localActions>
+        <localDeveloperName>course_information</localDeveloperName>
+        <masterLabel>Course Information</masterLabel>
+        <pluginType>Topic</pluginType>
+    </localTopics>
+    <localTopics>
+        <fullName>student_information_16jWt000000TkYv</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Look up a student by email or name, or get student details like company, role, and status.</description>
+        <developerName>student_information_16jWt000000TkYv</developerName>
+        <genAiPluginInstructions>
+            <description>You are a Learning Management assistant for employees. You help staff find information about available training courses, look up student records, and check enrollment status and progress. You provide clear, concise answers and proactively offer follow-up help.</description>
+            <developerName>instruction0_179Wt000000EHCI</developerName>
+            <language>en_US</language>
+            <masterLabel>instruction0_179Wt000000EHCI</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>look_up_student_179Wt000000EHCI</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>look_up_student_179Wt000000EHCI</fullName>
+            <description>Find a student by email or last name</description>
+            <developerName>look_up_student_179Wt000000EHCI</developerName>
+            <invocationTarget>StudentLookupAction</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+            <localDeveloperName>look_up_student</localDeveloperName>
+            <masterLabel>Look Up Student</masterLabel>
+        </localActions>
+        <localDeveloperName>student_information</localDeveloperName>
+        <masterLabel>Student Information</masterLabel>
+        <pluginType>Topic</pluginType>
+    </localTopics>
+    <localTopics>
+        <fullName>topic_selector_16jWt000000TkYv</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Welcome the user and determine the appropriate topic based on user input</description>
+        <developerName>topic_selector_16jWt000000TkYv</developerName>
+        <genAiPluginInstructions>
+            <description>You are a Learning Management assistant for employees. You help staff find information about available training courses, look up student records, and check enrollment status and progress. You provide clear, concise answers and proactively offer follow-up help.</description>
+            <developerName>instruction0_179Wt000000EHCH</developerName>
+            <language>en_US</language>
+            <masterLabel>instruction0_179Wt000000EHCH</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localDeveloperName>topic_selector</localDeveloperName>
+        <masterLabel>Topic Selector</masterLabel>
+        <pluginType>Topic</pluginType>
+    </localTopics>
+    <localTopics>
+        <fullName>escalation_16jWt000000TkYv</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Handles requests from users who want to transfer or escalate their conversation to a live human agent.</description>
+        <developerName>escalation_16jWt000000TkYv</developerName>
+        <genAiPluginInstructions>
+            <description>You are a Learning Management assistant for employees. You help staff find information about available training courses, look up student records, and check enrollment status and progress. You provide clear, concise answers and proactively offer follow-up help.</description>
+            <developerName>instruction0_179Wt000000EHCK</developerName>
+            <language>en_US</language>
+            <masterLabel>instruction0_179Wt000000EHCK</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localDeveloperName>escalation</localDeveloperName>
+        <masterLabel>Escalation</masterLabel>
+        <pluginType>Topic</pluginType>
+    </localTopics>
+    <localTopics>
+        <fullName>enrollment_status_16jWt000000TkYv</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Check enrollment records, course progress, who is enrolled in a course, or a student&apos;s enrollment history.</description>
+        <developerName>enrollment_status_16jWt000000TkYv</developerName>
+        <genAiPluginInstructions>
+            <description>You are a Learning Management assistant for employees. You help staff find information about available training courses, look up student records, and check enrollment status and progress. You provide clear, concise answers and proactively offer follow-up help.</description>
+            <developerName>instruction0_179Wt000000EHCJ</developerName>
+            <language>en_US</language>
+            <masterLabel>instruction0_179Wt000000EHCJ</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>query_enrollments_179Wt000000EHCJ</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>query_enrollments_179Wt000000EHCJ</fullName>
+            <description>Find enrollments by student email, course title, or status</description>
+            <developerName>query_enrollments_179Wt000000EHCJ</developerName>
+            <invocationTarget>EnrollmentQueryAction</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+            <localDeveloperName>query_enrollments</localDeveloperName>
+            <masterLabel>Query Enrollments</masterLabel>
+        </localActions>
+        <localDeveloperName>enrollment_status</localDeveloperName>
+        <masterLabel>Enrollment Status</masterLabel>
+        <pluginType>Topic</pluginType>
+    </localTopics>
+    <masterLabel>Learning Assistant</masterLabel>
+    <plannerType>Atlas__ConcurrentMultiAgentOrchestration</plannerType>
+</GenAiPlannerBundle>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Search_Courses</members>
+        <members>Look_Up_Student</members>
+        <members>Query_Enrollments</members>
+        <name>GenAiFunction</name>
+    </types>
+    <types>
+        <members>Learning_Management</members>
+        <name>GenAiPlugin</name>
+    </types>
+    <types>
+        <members>Learning_Assistant</members>
+        <name>GenAiPlanner</name>
+    </types>
+    <version>67.0</version>
+</Package>

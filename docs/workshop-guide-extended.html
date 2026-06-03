@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extended Workshop Guide — Agent & App Development Workshop</title>
+    <style>
+        :root {
+            --vp-c-brand: #0176d3;
+            --vp-c-brand-light: #1b96ff;
+            --vp-c-brand-dark: #014486;
+            --vp-c-bg: #ffffff;
+            --vp-c-bg-soft: #f6f6f7;
+            --vp-c-bg-mute: #e2e2e3;
+            --vp-c-text-1: #213547;
+            --vp-c-text-2: #476582;
+            --vp-c-text-3: #90a4ae;
+            --vp-c-divider: #e2e2e3;
+            --vp-c-tip: #0176d3;
+            --vp-c-warning: #e9a211;
+            --vp-c-danger: #e0234e;
+            --vp-c-success: #2e844a;
+            --vp-sidebar-width: 272px;
+            --vp-nav-height: 64px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--vp-c-text-1);
+            background: var(--vp-c-bg);
+            line-height: 1.7;
+        }
+
+        /* ===== NAV ===== */
+        .vp-nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            height: var(--vp-nav-height);
+            background: var(--vp-c-bg);
+            border-bottom: 1px solid var(--vp-c-divider);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px; z-index: 100;
+        }
+        .vp-nav-brand {
+            display: flex; align-items: center; gap: 12px;
+            text-decoration: none; color: var(--vp-c-text-1);
+            font-weight: 600; font-size: 16px;
+        }
+
+        /* ===== LAYOUT ===== */
+        .vp-layout {
+            display: flex; margin-top: var(--vp-nav-height);
+            min-height: calc(100vh - var(--vp-nav-height));
+        }
+
+        /* ===== SIDEBAR ===== */
+        .vp-sidebar {
+            position: fixed; top: var(--vp-nav-height); left: 0;
+            width: var(--vp-sidebar-width);
+            height: calc(100vh - var(--vp-nav-height));
+            overflow-y: auto; padding: 24px 20px;
+            border-right: 1px solid var(--vp-c-divider);
+            background: var(--vp-c-bg);
+        }
+        .vp-sidebar-group { margin-bottom: 24px; }
+        .vp-sidebar-group-title {
+            font-size: 13px; font-weight: 700; color: var(--vp-c-text-1);
+            text-transform: uppercase; letter-spacing: 0.4px;
+            margin-bottom: 8px; padding: 4px 0;
+        }
+        .vp-sidebar-items { list-style: none; }
+        .vp-sidebar-items a {
+            display: block; padding: 6px 12px; font-size: 14px;
+            color: var(--vp-c-text-2); text-decoration: none;
+            border-radius: 6px; transition: all 0.15s;
+        }
+        .vp-sidebar-items a:hover { background: var(--vp-c-bg-soft); color: var(--vp-c-text-1); }
+        .vp-sidebar-items a.active {
+            background: rgba(1, 118, 211, 0.08); color: var(--vp-c-brand); font-weight: 600;
+        }
+        .vp-sidebar-items .part-label {
+            display: block; padding: 8px 12px 4px; font-size: 11px;
+            font-weight: 700; color: var(--vp-c-text-3);
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
+        /* ===== CONTENT ===== */
+        .vp-content {
+            margin-left: var(--vp-sidebar-width);
+            flex: 1; max-width: 780px; padding: 32px 48px 96px;
+        }
+        .vp-content h1 {
+            font-size: 32px; font-weight: 700; line-height: 1.25;
+            margin-bottom: 8px; letter-spacing: -0.02em;
+        }
+        .vp-content h2 {
+            font-size: 24px; font-weight: 600; margin-top: 48px; margin-bottom: 16px;
+            padding-bottom: 12px; border-bottom: 1px solid var(--vp-c-divider);
+        }
+        .vp-content h2.part-heading {
+            font-size: 22px; font-weight: 700; margin-top: 64px;
+            background: var(--vp-c-bg-soft); border-left: 4px solid var(--vp-c-brand);
+            border-bottom: none; padding: 16px 20px; border-radius: 0 8px 8px 0;
+        }
+        .vp-content h3 {
+            font-size: 18px; font-weight: 600; margin-top: 32px; margin-bottom: 12px;
+        }
+        .vp-content p { margin-bottom: 16px; font-size: 15px; }
+        .vp-content ul, .vp-content ol { margin-bottom: 16px; padding-left: 24px; }
+        .vp-content li { margin-bottom: 8px; font-size: 15px; }
+        .vp-content code {
+            font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+            font-size: 13px; background: var(--vp-c-bg-soft);
+            padding: 2px 6px; border-radius: 4px; color: var(--vp-c-brand-dark);
+        }
+        .vp-content pre {
+            background: var(--vp-c-bg-soft); border-radius: 8px;
+            padding: 16px 20px; margin-bottom: 20px; overflow-x: auto;
+        }
+        .vp-content pre code {
+            background: none; padding: 0; font-size: 13px;
+            color: var(--vp-c-text-1); line-height: 1.6;
+        }
+
+        /* ===== TIME BADGE ===== */
+        .vp-time-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 14px; color: var(--vp-c-text-2); margin-bottom: 24px;
+        }
+
+        /* ===== CALLOUT ===== */
+        .vp-callout {
+            border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 14px;
+        }
+        .vp-callout-title { font-weight: 700; margin-bottom: 6px; font-size: 14px; }
+        .vp-callout p { font-size: 14px; margin-bottom: 8px; }
+        .vp-callout p:last-child { margin-bottom: 0; }
+        .vp-callout.tip { background: rgba(1, 118, 211, 0.06); border-left: 4px solid var(--vp-c-tip); }
+        .vp-callout.tip .vp-callout-title { color: var(--vp-c-tip); }
+        .vp-callout.warning { background: rgba(233, 162, 17, 0.06); border-left: 4px solid var(--vp-c-warning); }
+        .vp-callout.warning .vp-callout-title { color: var(--vp-c-warning); }
+        .vp-callout.scenario { background: rgba(46, 132, 74, 0.06); border-left: 4px solid var(--vp-c-success); }
+        .vp-callout.scenario .vp-callout-title { color: var(--vp-c-success); }
+
+        /* ===== STEPS ===== */
+        .step-block { margin-bottom: 32px; }
+        .step-block h3 { display: flex; align-items: center; gap: 10px; }
+        .step-num {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 28px; height: 28px; border-radius: 50%;
+            background: var(--vp-c-brand); color: white;
+            font-size: 13px; font-weight: 700; flex-shrink: 0;
+        }
+
+        /* ===== TABLE ===== */
+        .vp-content table {
+            width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px;
+        }
+        .vp-content th {
+            background: var(--vp-c-bg-soft); padding: 10px 14px;
+            text-align: left; font-weight: 600; border: 1px solid var(--vp-c-divider);
+        }
+        .vp-content td {
+            padding: 10px 14px; border: 1px solid var(--vp-c-divider); vertical-align: top;
+        }
+        .vp-content tr:nth-child(even) td { background: var(--vp-c-bg-soft); }
+
+        /* ===== PAGER ===== */
+        .vp-pager {
+            display: flex; justify-content: space-between;
+            margin-top: 48px; padding-top: 24px;
+            border-top: 1px solid var(--vp-c-divider);
+        }
+        .vp-pager a {
+            display: flex; flex-direction: column; padding: 12px 16px;
+            border: 1px solid var(--vp-c-divider); border-radius: 8px;
+            text-decoration: none; transition: border-color 0.2s; min-width: 200px;
+        }
+        .vp-pager a:hover { border-color: var(--vp-c-brand); }
+        .vp-pager .pager-label {
+            font-size: 11px; font-weight: 600; color: var(--vp-c-text-3);
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .vp-pager .pager-title {
+            font-size: 14px; font-weight: 500; color: var(--vp-c-brand); margin-top: 4px;
+        }
+        .vp-pager .prev { text-align: left; }
+        .vp-pager .next { text-align: right; margin-left: auto; }
+
+        @media (max-width: 960px) {
+            .vp-sidebar { display: none; }
+            .vp-content { margin-left: 0; padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="vp-nav">
+    <a href="index.html" class="vp-nav-brand">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" alt="Salesforce" height="24" style="height:24px;" />
+        Agent & App Development Workshop
+    </a>
+    <div></div>
+</nav>
+
+<!-- LAYOUT -->
+<div class="vp-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="vp-sidebar">
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Workshop</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="index.html">Overview</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Before You Start</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="#setup">Setup &amp; Org Access</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Part 1 — DX Inspector</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="#part1-prep">1. See the Gap</a></li>
+                <li><a href="#part1-add">2. Add the Picklist Value</a></li>
+                <li><a href="#part1-deploy">3. Verify the Change</a></li>
+                <li><a href="#part1-promote">5. Promote to Production</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Part 2 — Agentforce Vibes</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="#part2-walkthrough">6. Open Agentforce Vibes</a></li>
+                <li><a href="#part2-explorer">7. Metadata Explorer</a></li>
+                <li><a href="#part2-scaffold">8. Scaffold Preview</a></li>
+                <li><a href="#part2-fastforward">9. Fast-Forward to Project</a></li>
+                <li><a href="#part2-preview">10. Live Preview</a></li>
+                <li><a href="#part2-deploy">11. Deploy &amp; Verify</a></li>
+                <li><a href="#part2-iterate">12. Iterate &amp; Redeploy</a></li>
+                <li><a href="#part2-promote">13. Promote to Production</a></li>
+                <li><a href="#part2-wrap">14. Wrap Up &amp; Q&amp;A</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Reference</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="troubleshooting.html">Troubleshooting</a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="vp-content">
+
+        <h1>Agentforce Vibes Workshop</h1>
+        <div class="vp-time-badge">&#128339; <strong>~2 hours</strong></div>
+
+        <p>The Connected Executive Education team has two requests on the table today. You'll work through both — a simple metadata change and a full feature build — using the same governed, sandbox-first workflow for each.</p>
+
+
+        <!-- ============================================================ -->
+        <!-- SETUP                                                         -->
+        <!-- ============================================================ -->
+
+        <h2 id="setup">Setup</h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">1</span> Sign up for your workshop org</h3>
+            <p>Navigate to the sign-up URL provided by your facilitator. Enter the <strong>event code</strong> and your <strong>email address</strong> — you'll receive org credentials by email. Click the link to open the org directly.</p>
+            <div class="vp-callout tip">
+                <div class="vp-callout-title">Save your credentials</div>
+                <p>Write down your username and password — you'll need them throughout the workshop.</p>
+            </div>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">2</span> Confirm the app is installed</h3>
+            <p>In your production org, click the <strong>App Launcher</strong> (waffle icon) and search for <strong>Learning Management</strong>. You should see the Connected Executive Education dashboard with a Course Enrollments table. If you don't see it, raise your hand and a facilitator will help.</p>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">3</span> Log into the fullcopy sandbox</h3>
+            <p>In your production org, go to <strong>Setup &rarr; Sandboxes</strong>. You will see two sandboxes listed. Use the <strong>fullcopy</strong> sandbox — click <strong>Log In</strong> next to it.</p>
+            <p>The sandbox username is <code>&lt;prod-user-name&gt;.fullcopy</code> / <code>orgfarm1234</code>. If prompted to register your phone number, you can skip that step.</p>
+            <div style="margin-top: 12px;">
+                <img src="images/sandbox-fullcopy.png" alt="Sandboxes page showing fullcopy sandbox highlighted" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">4</span> Enable Change Management in the sandbox</h3>
+            <p>Inside the fullcopy sandbox, go to <strong>Setup &rarr;</strong> search for <code>change</code> in Quick Find <strong>&rarr; Change Management</strong> under Development. Toggle on <strong>Org-to-Org Metadata Deployment (Beta)</strong>.</p>
+            <p>This enables metadata deployment between your sandbox and production.</p>
+        </div>
+
+
+        <!-- ============================================================ -->
+        <!-- PART 1                                                        -->
+        <!-- ============================================================ -->
+
+        <h2 class="part-heading" id="part1">Part 1 &mdash; Simple Metadata Change via DX Inspector <span style="font-weight:400;font-size:16px;color:var(--vp-c-text-2);">&nbsp;~35 min</span></h2>
+
+        <div class="vp-callout scenario">
+            <div class="vp-callout-title">The ask</div>
+            <p>"We need a Deferred status on enrollments. Students are deferring to the next cohort — right now we're marking them Withdrawn, which is wrong. Can we get this into production today?"</p>
+        </div>
+
+        <p>This is the most common type of Salesforce request: a small, well-scoped metadata change that needs to go through the proper pipeline. We'll make the change in the <strong>fullcopy sandbox</strong>, verify it, then use DX Inspector to promote it to production.</p>
+
+
+        <!-- Step 1 -->
+        <h2 id="part1-prep">1. See the Gap <span style="font-weight:400;font-size:16px;color:var(--vp-c-text-2);">3 min</span></h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">5</span> Open an Enrollment record</h3>
+            <p>From the fullcopy sandbox, open the <strong>App Launcher</strong> and search for <strong>Connected Executive Education</strong>. Open any <strong>Enrollment</strong> record and click <strong>Edit</strong>. Look at the <strong>Status</strong> dropdown — you'll see: <code>Not Started</code>, <code>In Progress</code>, <code>On Hold</code>, <code>Withdrawn</code>, <code>Completed</code>.</p>
+            <p>No "Deferred". That's the ask.</p>
+        </div>
+
+        <div class="vp-callout tip">
+            <div class="vp-callout-title">Why not "On Hold"?</div>
+            <p><strong>On Hold</strong> is admin-controlled (e.g., payment issue). <strong>Deferred</strong> is student-initiated — they've chosen to move to a future cohort. The distinction matters for reporting and automations.</p>
+        </div>
+
+
+        <!-- Step 2 -->
+        <h2 id="part1-add">2. Add the Picklist Value <span style="font-weight:400;font-size:16px;color:var(--vp-c-text-2);">7 min</span></h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">6</span> Open the Status field in Setup</h3>
+            <p>In the fullcopy sandbox, click the <strong>gear icon &rarr; Setup</strong>. In Quick Find, type <code>object manager</code> and click <strong>Object Manager</strong>. Search for and open <strong>Enrollment</strong>.</p>
+            <p>Click <strong>Fields &amp; Relationships</strong>, then click the <strong>Status</strong> field.</p>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">7</span> Add the Deferred value</h3>
+            <p>Scroll to the <strong>Values</strong> section and click <strong>New</strong>. Enter <code>Deferred</code> as the label and click <strong>Save</strong>.</p>
+            <p>The value is now live in the sandbox. Open any Enrollment record and confirm <strong>Deferred</strong> appears in the Status dropdown.</p>
+        </div>
+
+
+        <!-- Step 3 -->
+        <h2 id="part1-deploy">3. Verify the Change <span style="font-weight:400;font-size:16px;color:var(--vp-c-text-2);">2 min</span></h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">8</span> Check it on a record</h3>
+            <p>Open any <strong>Enrollment</strong> record, click <strong>Edit</strong>, and confirm <strong>Deferred</strong> is selectable in the Status field. That's all the verification needed for a picklist value — it's live in the sandbox the moment you saved it.</p>
+        </div>
+
+        <div class="vp-callout tip">
+            <div class="vp-callout-title">Checkpoint</div>
+            <p>Deferred is visible and selectable. The sandbox has the change — now we need to get it to production safely.</p>
+        </div>
+
+
+        <!-- Step 5 -->
+        <h2 id="part1-promote">5. Promote to Production with DX Inspector <span style="font-weight:400;font-size:16px;color:var(--vp-c-text-2);">10 min</span></h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">8</span> Open DX Inspector</h3>
+            <ol>
+                <li>Navigate to <strong>DX Inspector</strong> (your facilitator will provide the URL, or use the Chrome extension)</li>
+                <li>Connect your <strong>source environment</strong>: the fullcopy sandbox</li>
+                <li>Connect your <strong>target environment</strong>: production</li>
+            </ol>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">9</span> Review the diff</h3>
+            <p>DX Inspector shows exactly what differs between the two environments:</p>
+            <table>
+                <thead><tr><th>Component</th><th>Type</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td><code>Enrollment__c.Status__c</code></td><td>CustomField (Picklist)</td><td><strong>Modified</strong> — new value: Deferred</td></tr>
+                </tbody>
+            </table>
+            <p>Click the component to see the diff — the new <code>&lt;value&gt;</code> block highlighted in green. Confirm this is the only change.</p>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">10</span> Deploy to production</h3>
+            <ol>
+                <li>Select the <code>Enrollment__c.Status__c</code> component</li>
+                <li>Click <strong>Deploy to Target</strong></li>
+                <li>DX Inspector runs validation — confirm and proceed</li>
+                <li>Once complete, open an Enrollment record in production and confirm <strong>Deferred</strong> is available in the Status dropdown</li>
+            </ol>
+        </div>
+
+        <div class="vp-callout scenario">
+            <div class="vp-callout-title">Part 1 complete</div>
+            <p>A business request went from conversation to production in under 35 minutes — through a sandbox, reviewed, and promoted with confidence. Now let's tackle the bigger ask.</p>
+        </div>
+
+
+        <!-- ============================================================ -->
+        <!-- PART 2                                                        -->
+        <!-- ============================================================ -->
+
+        <h2 class="part-heading" id="part2">Part 2 &mdash; Build a Feature with Agentforce Vibes <span style="font-weight:400;font-size:16px;color:var(--vp-c-text-2);">&nbsp;~65 min</span></h2>
+
+        <div class="vp-callout scenario">
+            <div class="vp-callout-title">The second ask</div>
+            <p>"Program directors want a Top Learners section on the dashboard — top 5 students by completed enrollments, with their satisfaction ratings. Something that makes high performers visible."</p>
+        </div>
+
+        <p>This is a feature request, not a field change. It needs new Apex logic, LWC updates, and testing. This is where Agentforce Vibes earns its place: conversational scaffolding, live preview, iterative deployment — all inside the same sandbox-first workflow we've already used in Part 1.</p>
+
+
+        <!-- Step 6 -->
+        <h2 id="part2-walkthrough">6. Open Agentforce Vibes <span style="font-weight:400;font-size:16px;color:var(--vp-c-text-2);">5 min</span></h2>
+
+        <p>Part 2 runs inside <strong>Agentforce Vibes IDE</strong>. Before we start building, get it running and activate the tools it needs.</p>
+
+        <div class="step-block">
+            <h3><span class="step-num">19</span> Activate MCP Servers</h3>
+            <p>In the fullcopy sandbox, go to <strong>Setup &rarr;</strong> search for <code>mcp ser</code> in Quick Find <strong>&rarr; MCP Servers</strong> under Integrations &gt; API Catalog. Activate both:</p>
+            <ul>
+                <li><strong>salesforce-api-context</strong> — gives Agentforce Salesforce API context</li>
+                <li><strong>metadata-experts</strong> — lets Agentforce discover org metadata (objects, fields, relationships)</li>
+            </ul>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">20</span> Open Agentforce Vibes</h3>
+            <p>From the <strong>gear icon &rarr; Agentforce Vibes</strong>. Once loaded, it's authenticated to the fullcopy sandbox. Select <strong>I agree</strong> to the terms and click <strong>Enable &amp; Start Building</strong>.</p>
+        </div>
+
+        <p>Agentforce is your conversational coding partner. When you chat with it, you're not just getting suggestions — you're working with an agent that understands your project context and can execute entire development workflows through natural language.</p>
+
+        <p>The way it does this is through <strong>Model Context Protocol (MCP)</strong>. Think of MCP like the USB standard for AI agents: just as USB gives your computer a consistent way to connect to any device, MCP gives Agentforce a consistent way to connect to different development tools.</p>
+
+        <p>Agentforce always works in two phases:</p>
+        <ul>
+            <li><strong>Plan</strong> — explains what it intends to do and why, without changing any files.</li>
+            <li><strong>Act</strong> — executes those steps under guardrails, asking for confirmation at each stage.</li>
+        </ul>
+
+        <div class="step-block">
+            <h3><span class="step-num">11</span> Explore the MCP Server</h3>
+            <p>Click <strong>"Manage MCP Servers"</strong>. The Salesforce DX MCP Server is already added by default. Click the gear icon to explore its tools — scroll through the list to see what's available, then click <strong>Done</strong>.</p>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">12</span> Explore Agentforce Rules</h3>
+            <p>Click on <strong>Manage Agentforce Rules &amp; Workflows</strong> from the bottom pane. Inspect the rules — these are persistent guardrails that keep Agentforce aligned with your team's standards across every session.</p>
+        </div>
+
+
+        <!-- Step 7 -->
+        <h2 id="part2-explorer">7. Explore with Metadata Explorer <span style="font-weight:400;font-size:16px;color:var(--vp-c-text-2);">5 min</span></h2>
+
+        <p>Before building, orient yourself in the org schema — the same way you would on a real project.</p>
+
+        <div class="step-block">
+            <h3><span class="step-num">13</span> Browse the objects</h3>
+            <p>Open the <strong>Metadata Explorer</strong> panel and navigate the three custom objects: <code>Student__c</code>, <code>Course__c</code>, <code>Enrollment__c</code>. Answer these questions:</p>
+            <ul>
+                <li>How are the objects related? Which is the junction object?</li>
+                <li>What fields on <code>Enrollment__c</code> track completion and satisfaction?</li>
+                <li>What's the API name for the attendance percentage field? (You'll use it in the iteration step.)</li>
+            </ul>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">14</span> Run a live query</h3>
+            <p>Click on <code>Enrollment__c</code> and use the <strong>Query</strong> feature to run:</p>
+            <pre><code>SELECT Student__c, Status__c, Satisfaction_Rating__c, Attendance_Percentage__c
+FROM Enrollment__c
+WHERE Status__c = 'Completed'
+LIMIT 10</code></pre>
+            <p>Get a feel for the shape of the data you're building against.</p>
+        </div>
+
+
+        <!-- Step 8 -->
+        <h2 id="part2-scaffold">8. Scaffold Preview <span style="font-weight:400;font-size:16px;color:var(--vp-c-text-2);">7 min</span></h2>
+
+        <p>Look at the <strong>Learning Management Dashboard</strong> in your browser — there's empty space above the enrollment table. That's where the Top Learners widget will go.</p>
+
+        <div class="step-block">
+            <h3><span class="step-num">15</span> Enter Plan mode</h3>
+            <p>From the bottom right of Agentforce, click <strong>Plan</strong>, then enter this prompt:</p>
+            <pre><code>I want to add a "Top Learners" section to the existing learningManagementDashboard LWC.
+This section should show the top 5 students ranked by number of completed enrollments,
+display each student's name, company, number of completed courses, and average satisfaction
+rating, use a card-based layout with a trophy icon, and place it above the enrollment table
+on the dashboard.</code></pre>
+            <p>Examine the plan — notice it identifies all required metadata: a new Apex method <code>getTopLearners()</code>, updates to the <code>learningManagementDashboard</code> LWC (HTML, JS, CSS), and the SOQL needed to aggregate enrollment data.</p>
+        </div>
+
+        <div class="vp-callout tip">
+            <div class="vp-callout-title">Iterate if you want</div>
+            <p>Plan mode makes no file changes. Tell Agentforce "Also show their department" or "Use a leaderboard table instead of cards" and it will revise the plan. Adjust until it matches your vision before proceeding.</p>
+        </div>
+
+
+        <!-- Step 9 -->
+        <h2 id="part2-fastforward">9. Fast-Forward to Prebuilt Project <span style="font-weight:400;font-size:16px;color:var(--vp-c-text-2);">8 min</span></h2>
+
+        <p>To keep everyone on the same baseline, we'll clone a curated repository that contains the same functionality Agentforce would scaffold.</p>
+
+        <div class="step-block">
+            <h3><span class="step-num">16</span> Clone the repository</h3>
+            <p>In Agentforce Vibes: <strong>Menu &rarr; File &rarr; Close Folder</strong>, then <strong>Menu &rarr; Terminal &rarr; New Terminal</strong>. Paste the following (click <strong>Allow</strong> if prompted):</p>
+            <pre><code>cd ..
+cd codebuilder/
+git clone https://github.com/sadhananandakumaralmny/learning-management-vibes</code></pre>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">17</span> Open the folder</h3>
+            <p>Click the <strong>File</strong> icon &rarr; <strong>Open Folder</strong> &rarr; select <strong>learning-management-vibes</strong> &rarr; <strong>OK</strong>.</p>
+            <p>Explore the folder structure: the updated Apex controller with <code>getTopLearners()</code>, the modified LWC files, and test classes. Right-click any file to run <strong>Code Analyzer</strong>.</p>
+            <p>Finally, flip the switch from <strong>Plan</strong> to <strong>Act</strong> before the next step.</p>
+        </div>
+
+
+        <!-- Step 10 -->
+        <h2 id="part2-preview">10. Live Preview <span style="font-weight:400;font-size:16px;color:var(--vp-c-text-2);">5 min</span></h2>
+
+        <p>Before deploying, preview the component locally — no deployment round-trip required.</p>
+
+        <div class="step-block">
+            <h3><span class="step-num">18</span> Start Live Preview</h3>
+            <p>In the terminal, run:</p>
+            <pre><code>sf lightning dev app</code></pre>
+            <p>A browser tab opens automatically. Navigate to <strong>Connected Executive Education</strong> — the dashboard loads with your local component code, including the Top Learners widget. Edits to HTML or CSS update the browser instantly.</p>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">19</span> Try a quick tweak</h3>
+            <p>While Live Preview is running, ask Agentforce:</p>
+            <pre><code>Change the Top Learners section header color to dark blue and make the trophy icon larger.</code></pre>
+            <p>Watch the browser update within seconds. When done, press <code>Ctrl + C</code> to stop the local server.</p>
+        </div>
+
+        <table>
+            <thead><tr><th>Without Live Preview</th><th>With Live Preview</th></tr></thead>
+            <tbody>
+                <tr><td>Edit &rarr; Deploy (30–60s) &rarr; Refresh &rarr; Check</td><td>Edit &rarr; See it instantly</td></tr>
+                <tr><td>Broken deploy blocks testing</td><td>Errors surface immediately in the browser</td></tr>
+            </tbody>
+        </table>
+
+
+        <!-- Step 11 -->
+        <h2 id="part2-deploy">11. Deploy to Sandbox &amp; Verify <span style="font-weight:400;font-size:16px;color:var(--vp-c-text-2);">10 min</span></h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">20</span> Deploy the project</h3>
+            <p>In the Agentforce conversation pane:</p>
+            <pre><code>Deploy this project to my sandbox.</code></pre>
+            <p>Confirm the target org when prompted. Agentforce uses MCP tools to handle the deployment, asking for confirmation at each stage.</p>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">21</span> Verify in the sandbox</h3>
+            <p>Click the <strong>window icon</strong> from the bottom pane to open the org. Go to <strong>App Launcher &rarr; Connected Executive Education</strong>. The <strong>Top Learners</strong> widget should now appear above the enrollment table.</p>
+            <div class="vp-callout tip">
+                <div class="vp-callout-title">What you should see</div>
+                <p>A leaderboard showing the top 5 students with completed course counts, companies, and satisfaction ratings — with trophy icons and visual indicators.</p>
+            </div>
+        </div>
+
+
+        <!-- Step 12 -->
+        <h2 id="part2-iterate">12. Make a Small Change &amp; Redeploy <span style="font-weight:400;font-size:16px;color:var(--vp-c-text-2);">13 min</span></h2>
+
+        <p>Development is iterative. Let's add an <strong>Attendance Percentage</strong> column to the widget — demonstrating the full instruct &rarr; scaffold &rarr; deploy &rarr; verify loop.</p>
+
+        <div class="step-block">
+            <h3><span class="step-num">22</span> Request the change</h3>
+            <pre><code>Add an average attendance percentage to each student in the Top Learners widget.
+Show it as a progress ring or percentage badge next to their name.</code></pre>
+            <p>Agentforce may ask for clarification — choose the option to proceed. Watch it dynamically fix errors as it goes through the Act loop.</p>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">23</span> Verify the update</h3>
+            <p>Once deployed, hard refresh the sandbox (<code>Cmd + Shift + R</code>) to see the attendance percentage on each student card.</p>
+        </div>
+
+        <div class="vp-callout tip">
+            <div class="vp-callout-title">Agents are non-deterministic</div>
+            <p>You might not see the same response as the example above. The agent iteratively self-corrects until it reaches a clean deployment — this is the Act loop in practice.</p>
+        </div>
+
+
+        <!-- Step 13 -->
+        <h2 id="part2-promote">13. Promote to Production with DX Inspector <span style="font-weight:400;font-size:16px;color:var(--vp-c-text-2);">5 min</span></h2>
+
+        <p>The Top Learners widget is working in the sandbox. The promotion path is the same as Part 1 — just with more components.</p>
+
+        <div class="step-block">
+            <h3><span class="step-num">24</span> Open DX Inspector and review the diff</h3>
+            <p>Source: fullcopy sandbox &nbsp;|&nbsp; Target: production</p>
+            <table>
+                <thead><tr><th>Component</th><th>Type</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td><code>LearningManagementController</code></td><td>ApexClass</td><td><strong>Modified</strong> — new <code>getTopLearners()</code> method</td></tr>
+                    <tr><td><code>learningManagementDashboard</code></td><td>LWC</td><td><strong>Modified</strong> — updated HTML, JS, CSS</td></tr>
+                </tbody>
+            </table>
+            <p>Click each component to review the diff. Confirm no unintended changes or debug code are included.</p>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">25</span> Deploy to production</h3>
+            <ol>
+                <li>Select both components</li>
+                <li>Click <strong>Deploy to Target</strong></li>
+                <li>Apex tests run automatically during validation</li>
+                <li>Confirm and deploy</li>
+                <li>Verify in production: <strong>App Launcher &rarr; Connected Executive Education</strong> — Top Learners widget should be live</li>
+            </ol>
+        </div>
+
+        <div class="vp-callout tip">
+            <div class="vp-callout-title">Notice the pattern</div>
+            <p>Whether it's one picklist value or a full LWC feature, the promotion path is identical — sandbox, review, DX Inspector, production. The tooling scales with complexity; the workflow doesn't change.</p>
+        </div>
+
+
+        <!-- Step 14 -->
+        <h2 id="part2-wrap">14. Beyond Sandboxes &amp; Q&amp;A <span style="font-weight:400;font-size:16px;color:var(--vp-c-text-2);">7 min</span></h2>
+
+        <p>Today's two requests show the full range of the Agentforce ALM workflow:</p>
+
+        <table>
+            <thead><tr><th></th><th>Part 1: Deferred Status</th><th>Part 2: Top Learners Widget</th></tr></thead>
+            <tbody>
+                <tr><td>Change type</td><td>Single picklist value</td><td>Apex + LWC feature</td></tr>
+                <tr><td>Scaffolded by</td><td>Manual XML edit / Agentforce prompt</td><td>Agentforce Vibes (Plan &rarr; Act)</td></tr>
+                <tr><td>Preview</td><td>N/A</td><td>Live Preview</td></tr>
+                <tr><td>Deploy path</td><td>Metadata deploy &rarr; DX Inspector</td><td>Agentforce deploy &rarr; DX Inspector</td></tr>
+                <tr><td>Production gate</td><td>DX Inspector diff + validation</td><td>DX Inspector diff + Apex tests</td></tr>
+            </tbody>
+        </table>
+
+        <p>Both followed the same governed loop:</p>
+        <ul>
+            <li><strong>Begin in the fullcopy sandbox</strong> — safe environment for all development and testing</li>
+            <li><strong>Make the change</strong> — metadata edit or Agentforce scaffolding</li>
+            <li><strong>Verify in sandbox</strong> — confirm the change works as expected</li>
+            <li><strong>Promote via DX Inspector</strong> — diff review, validation, controlled promotion to production</li>
+        </ul>
+
+        <h3>Take-Home Prompts</h3>
+
+        <p><strong>Course Popularity Chart</strong></p>
+        <pre><code>Add a "Popular Courses" section to the learningManagementDashboard that shows the top 5
+courses by enrollment count, with a horizontal bar chart showing how full each course is
+(Current_Enrollment__c vs. Max_Enrollment__c). Include the instructor name and rating.</code></pre>
+
+        <p><strong>Revenue Summary</strong></p>
+        <pre><code>Add a revenue summary card to the dashboard showing total Amount_Paid__c across all
+enrollments, broken down by Payment_Status__c (Paid, Pending, Scholarship, etc.)
+as a donut chart with the total in the center.</code></pre>
+
+        <p><strong>Student Search Enhancement</strong></p>
+        <pre><code>Enhance the existing search bar on the dashboard to also support filtering by Country__c
+and Role__c using dropdown filters alongside the text search.</code></pre>
+
+        <p><strong>Certification Tracker</strong></p>
+        <pre><code>Build a new "Certification Tracker" section showing students who have completed courses
+where Certification_Offered__c is true, whether Certificate_Issued__c is true or false,
+and the Certificate_Date__c. Highlight overdue certificates in red.</code></pre>
+
+        <!-- PAGER -->
+        <nav class="vp-pager">
+            <a href="index.html" class="prev">
+                <span class="pager-label">Back to</span>
+                <span class="pager-title">Overview</span>
+            </a>
+            <a href="troubleshooting.html" class="next">
+                <span class="pager-label">Reference</span>
+                <span class="pager-title">Troubleshooting</span>
+            </a>
+        </nav>
+
+    </main>
+</div>
+
+</body>
+</html>

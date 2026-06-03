@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup — Agent & App Development Workshop</title>
+    <style>
+        :root {
+            --vp-c-brand: #0176d3;
+            --vp-c-brand-light: #1b96ff;
+            --vp-c-brand-dark: #014486;
+            --vp-c-bg: #ffffff;
+            --vp-c-bg-soft: #f6f6f7;
+            --vp-c-bg-mute: #e2e2e3;
+            --vp-c-text-1: #213547;
+            --vp-c-text-2: #476582;
+            --vp-c-text-3: #90a4ae;
+            --vp-c-divider: #e2e2e3;
+            --vp-c-tip: #0176d3;
+            --vp-c-warning: #e9a211;
+            --vp-c-danger: #e0234e;
+            --vp-c-success: #2e844a;
+            --vp-sidebar-width: 272px;
+            --vp-nav-height: 64px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--vp-c-text-1);
+            background: var(--vp-c-bg);
+            line-height: 1.7;
+        }
+
+        /* ===== NAV ===== */
+        .vp-nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            height: var(--vp-nav-height);
+            background: var(--vp-c-bg);
+            border-bottom: 1px solid var(--vp-c-divider);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px; z-index: 100;
+        }
+        .vp-nav-brand {
+            display: flex; align-items: center; gap: 12px;
+            text-decoration: none; color: var(--vp-c-text-1);
+            font-weight: 600; font-size: 16px;
+        }
+        .vp-nav-links { display: flex; gap: 24px; list-style: none; }
+        .vp-nav-links a {
+            text-decoration: none; color: var(--vp-c-text-2);
+            font-size: 14px; font-weight: 500; transition: color 0.2s;
+        }
+        .vp-nav-links a:hover, .vp-nav-links a.active { color: var(--vp-c-brand); }
+        .vp-nav-social { display: flex; gap: 16px; }
+        .vp-nav-social a { color: var(--vp-c-text-3); transition: color 0.2s; }
+        .vp-nav-social a:hover { color: var(--vp-c-text-1); }
+
+        /* ===== LAYOUT ===== */
+        .vp-layout {
+            display: flex; margin-top: var(--vp-nav-height);
+            min-height: calc(100vh - var(--vp-nav-height));
+        }
+
+        /* ===== SIDEBAR ===== */
+        .vp-sidebar {
+            position: fixed; top: var(--vp-nav-height); left: 0;
+            width: var(--vp-sidebar-width);
+            height: calc(100vh - var(--vp-nav-height));
+            overflow-y: auto; padding: 24px 20px;
+            border-right: 1px solid var(--vp-c-divider);
+            background: var(--vp-c-bg);
+        }
+        .vp-sidebar-group { margin-bottom: 24px; }
+        .vp-sidebar-group-title {
+            font-size: 13px; font-weight: 700; color: var(--vp-c-text-1);
+            text-transform: uppercase; letter-spacing: 0.4px;
+            margin-bottom: 8px; padding: 4px 0;
+        }
+        .vp-sidebar-items { list-style: none; }
+        .vp-sidebar-items a {
+            display: block; padding: 6px 12px; font-size: 14px;
+            color: var(--vp-c-text-2); text-decoration: none;
+            border-radius: 6px; transition: all 0.15s;
+        }
+        .vp-sidebar-items a:hover { background: var(--vp-c-bg-soft); color: var(--vp-c-text-1); }
+        .vp-sidebar-items a.active {
+            background: rgba(1, 118, 211, 0.08); color: var(--vp-c-brand); font-weight: 600;
+        }
+
+        /* ===== CONTENT ===== */
+        .vp-content {
+            margin-left: var(--vp-sidebar-width);
+            flex: 1; max-width: 780px; padding: 32px 48px 96px;
+        }
+        .vp-content h1 {
+            font-size: 32px; font-weight: 700; line-height: 1.25;
+            margin-bottom: 8px; letter-spacing: -0.02em;
+        }
+        .vp-content h2 {
+            font-size: 24px; font-weight: 600; margin-top: 48px; margin-bottom: 16px;
+            padding-bottom: 12px; border-bottom: 1px solid var(--vp-c-divider);
+        }
+        .vp-content h3 {
+            font-size: 18px; font-weight: 600; margin-top: 32px; margin-bottom: 12px;
+        }
+        .vp-content p { margin-bottom: 16px; font-size: 15px; }
+        .vp-content ul, .vp-content ol { margin-bottom: 16px; padding-left: 24px; }
+        .vp-content li { margin-bottom: 8px; font-size: 15px; }
+        .vp-content code {
+            font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+            font-size: 13px; background: var(--vp-c-bg-soft);
+            padding: 2px 6px; border-radius: 4px; color: var(--vp-c-brand-dark);
+        }
+
+        /* ===== CALLOUT ===== */
+        .vp-callout {
+            border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 14px;
+        }
+        .vp-callout-title { font-weight: 700; margin-bottom: 6px; font-size: 14px; }
+        .vp-callout p { font-size: 14px; margin-bottom: 8px; }
+        .vp-callout p:last-child { margin-bottom: 0; }
+        .vp-callout.tip { background: rgba(1, 118, 211, 0.06); border-left: 4px solid var(--vp-c-tip); }
+        .vp-callout.tip .vp-callout-title { color: var(--vp-c-tip); }
+        .vp-callout.warning { background: rgba(233, 162, 17, 0.06); border-left: 4px solid var(--vp-c-warning); }
+        .vp-callout.warning .vp-callout-title { color: var(--vp-c-warning); }
+        .vp-callout.danger { background: rgba(224, 35, 78, 0.06); border-left: 4px solid var(--vp-c-danger); }
+        .vp-callout.danger .vp-callout-title { color: var(--vp-c-danger); }
+
+        /* ===== STEPS ===== */
+        .step-block {
+            margin-bottom: 32px;
+        }
+        .step-block h3 {
+            display: flex; align-items: center; gap: 10px;
+        }
+        .step-num {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 28px; height: 28px; border-radius: 50%;
+            background: var(--vp-c-brand); color: white;
+            font-size: 13px; font-weight: 700; flex-shrink: 0;
+        }
+
+        /* ===== BUTTON ===== */
+        .vp-button {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 10px 20px; background: var(--vp-c-brand); color: white;
+            border-radius: 8px; text-decoration: none; font-weight: 600;
+            font-size: 14px; transition: background 0.2s;
+        }
+        .vp-button:hover { background: var(--vp-c-brand-dark); }
+
+        /* ===== PAGER ===== */
+        .vp-pager {
+            display: flex; justify-content: space-between;
+            margin-top: 48px; padding-top: 24px;
+            border-top: 1px solid var(--vp-c-divider);
+        }
+        .vp-pager a {
+            display: flex; flex-direction: column; padding: 12px 16px;
+            border: 1px solid var(--vp-c-divider); border-radius: 8px;
+            text-decoration: none; transition: border-color 0.2s; min-width: 200px;
+        }
+        .vp-pager a:hover { border-color: var(--vp-c-brand); }
+        .vp-pager .pager-label {
+            font-size: 11px; font-weight: 600; color: var(--vp-c-text-3);
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .vp-pager .pager-title {
+            font-size: 14px; font-weight: 500; color: var(--vp-c-brand); margin-top: 4px;
+        }
+        .vp-pager .prev { text-align: left; }
+        .vp-pager .next { text-align: right; margin-left: auto; }
+
+        @media (max-width: 960px) {
+            .vp-sidebar { display: none; }
+            .vp-content { margin-left: 0; padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="vp-nav">
+    <a href="index.html" class="vp-nav-brand">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" alt="Salesforce" height="24" style="height:24px;" />
+        Agent & App Development Workshop
+    </a>
+    <div></div>
+</nav>
+
+<!-- LAYOUT -->
+<div class="vp-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="vp-sidebar">
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Workshop</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="index.html">Overview</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Before the Session</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="setup.html" class="active">Setup</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Hands-On</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="inspect-app.html">1. Inspect the App</a></li>
+                <li><a href="afv-walkthrough.html">2. Agentforce Vibes Walkthrough</a></li>
+                <li><a href="build-leaderboard.html">3. Build the Leaderboard</a></li>
+                <li><a href="deploy-verify.html">4. Verify</a></li>
+                <li><a href="promote-to-prod.html">5. Promote to Production</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Wrap Up</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="whats-next.html">What's Next</a></li>
+                <li><a href="troubleshooting.html">Troubleshooting</a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="vp-content">
+
+        <h1>Setup</h1>
+        <div class="vp-time-badge" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;color:#476582;margin-bottom:24px;">&#128339; <strong>7 minutes</strong></div>
+        <p>Complete these steps <strong>before the workshop session</strong> so you're ready to go when we start.</p>
+
+        <h2>Sign up for your workshop org</h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">1</span> Open the sign-up URL</h3>
+            <p>Navigate to <a href="https://orgfarm.salesforce.com/signup" target="_blank"><strong>orgfarm.salesforce.com/signup</strong></a></p>
+
+            <div style="margin-top: 12px;">
+                <img src="images/signup-form.png" alt="OrgFarm sign-up form" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">2</span> Fill in the sign-up form</h3>
+            <p>Enter the <strong>event code</strong> provided by your presenter, your <strong>email address</strong>, <strong>first name</strong>, <strong>last name</strong>, <strong>company</strong>, <strong>role</strong>, and <strong>country/region</strong>. Then click <strong>Submit</strong>.</p>
+            <p>You will receive the org credentials on the email you provide.</p>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">3</span> Sign-up successful</h3>
+            <p>You should now see a <strong>signup successful</strong> message with a link to open the org directly. Alternatively, you can also check your email for the sign-up link.</p>
+            <p>These orgs will be available to use for <strong>3 days</strong> following the event.</p>
+
+            <div class="vp-callout tip">
+                <div class="vp-callout-title">Save your credentials</div>
+                <p>Write down your username and password — you'll need them to log into your sandbox during the workshop.</p>
+            </div>
+        </div>
+
+        <h2>Verify your org</h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">4</span> Log into your org</h3>
+            <p>Use the link from the success page or your email to log in. You can also go to <a href="https://login.salesforce.com" target="_blank"><strong>login.salesforce.com</strong></a> and use the credentials from your sign-up email. You should land in your Salesforce org.</p>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">5</span> Confirm you see the app</h3>
+            <p>Use the <strong>App Launcher</strong> (the grid icon in the top left) to search for and open <strong>Learning Management</strong>. You should see the Connected Executive Education dashboard with a Course Enrollments table.</p>
+
+            <div style="margin-top: 12px;">
+                <img src="images/dashboard-screenshot.png" alt="The Learning Management dashboard" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+        </div>
+
+        <h2>Log into your sandbox</h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">6</span> Navigate to Setup</h3>
+            <p>In your org, click the <strong>gear icon</strong> in the top right and select <strong>Setup</strong>. In the Quick Find box on the left, type <code>sandbox</code> and click <strong>Sandboxes</strong> under Environments.</p>
+            <p>You will see two sandboxes listed. Use the <strong>fullcopy</strong> sandbox — click <strong>Log In</strong> next to it.</p>
+
+            <div style="margin-top: 12px;">
+                <img src="images/sandbox-fullcopy.png" alt="Sandboxes page showing fullcopy sandbox highlighted" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">7</span> Log into the sandbox</h3>
+            <p>Click the <strong>Log In</strong> link next to your sandbox. The password is <code>orgfarm1234</code>. If you're prompted to register your phone number, you can skip this step.</p>
+            <p>If you need to log into the sandbox later, go to <a href="https://test.salesforce.com" target="_blank"><strong>test.salesforce.com</strong></a>. The username is your production username with <code>.fullcopy</code> appended (e.g. <code>user@example.com.fullcopy</code>) and the password is <code>orgfarm1234</code>.</p>
+        </div>
+
+        <h2>Enable Change Management</h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">8</span> Turn on Org-to-Org Metadata Deployment</h3>
+            <p>Inside your sandbox, go to <strong>Setup</strong> &rarr; search for <code>change</code> in Quick Find &rarr; click <strong>Change Management</strong> under Development. Toggle on <strong>Org-to-Org Metadata Deployment (Beta)</strong>.</p>
+            <p>This enables metadata deployment between your sandbox and production org, which we'll use later in the workshop.</p>
+
+            <div style="margin-top: 12px;">
+                <img src="images/change-management.png" alt="Change Management settings in Setup" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+        </div>
+
+        <h2>Activate MCP Servers</h2>
+
+        <p>MCP (Model Context Protocol) servers connect Agentforce Vibes to your org's capabilities. These platform MCP servers let the agent explore your org's objects, fields, and relationships. You need to activate two servers for this workshop.</p>
+
+        <div class="step-block">
+            <h3><span class="step-num">9</span> Navigate to MCP Servers</h3>
+            <p>In your sandbox, go to <strong>Setup</strong> &rarr; search for <code>mcp ser</code> in Quick Find &rarr; click <strong>MCP Servers</strong> under Integrations &gt; API Catalog. You'll see a list of available servers, all with status <strong>Inactive</strong>.</p>
+
+            <div style="margin-top: 12px;">
+                <img src="images/mcp-servers-list.png" alt="MCP Servers list in Setup" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">10</span> Activate salesforce-api-context</h3>
+            <p>Click <strong>salesforce-api-context</strong> from the list, then click the <strong>Activate</strong> button. This server provides Agentforce Vibes with Salesforce API context so it can generate code that works with your org's specific configuration.</p>
+
+            <div style="margin-top: 12px;">
+                <img src="images/mcp-server-active.png" alt="MCP Server activated" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">11</span> Activate metadata-experts</h3>
+            <p>Go back to the MCP Servers list and click <strong>metadata-experts</strong>, then click <strong>Activate</strong>. This server allows Agentforce Vibes to discover and inspect your org's metadata — objects, fields, relationships, and configurations.</p>
+        </div>
+
+        <div class="vp-callout tip">
+            <div class="vp-callout-title">What happens next?</div>
+            <p>We'll begin where all safe development starts — the sandbox. This is your isolated environment where you can experiment and iterate without risk to production. From here, you can open the Agentforce Vibes IDE right inside the sandbox, build your feature, and push from sandbox to prod.</p>
+        </div>
+
+        <div class="vp-callout warning">
+            <div class="vp-callout-title">Having trouble?</div>
+            <p>If you can't log in or don't see the Learning Management app, raise your hand at the start of the workshop and a facilitator will help you get set up.</p>
+        </div>
+
+        <p>Once you can see the dashboard in your sandbox, you're all set for the workshop.</p>
+
+        <!-- PAGER -->
+        <nav class="vp-pager">
+            <a href="index.html" class="prev">
+                <span class="pager-label">Previous</span>
+                <span class="pager-title">Overview</span>
+            </a>
+            <a href="inspect-app.html" class="next">
+                <span class="pager-label">Next</span>
+                <span class="pager-title">1. Inspect the App</span>
+            </a>
+        </nav>
+
+    </main>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspect the App — Agent & App Development Workshop</title>
+    <style>
+        :root {
+            --vp-c-brand: #0176d3;
+            --vp-c-brand-light: #1b96ff;
+            --vp-c-brand-dark: #014486;
+            --vp-c-bg: #ffffff;
+            --vp-c-bg-soft: #f6f6f7;
+            --vp-c-bg-mute: #e2e2e3;
+            --vp-c-text-1: #213547;
+            --vp-c-text-2: #476582;
+            --vp-c-text-3: #90a4ae;
+            --vp-c-divider: #e2e2e3;
+            --vp-c-tip: #0176d3;
+            --vp-c-warning: #e9a211;
+            --vp-c-danger: #e0234e;
+            --vp-c-success: #2e844a;
+            --vp-sidebar-width: 272px;
+            --vp-nav-height: 64px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--vp-c-text-1);
+            background: var(--vp-c-bg);
+            line-height: 1.7;
+        }
+
+        /* ===== NAV ===== */
+        .vp-nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            height: var(--vp-nav-height);
+            background: var(--vp-c-bg);
+            border-bottom: 1px solid var(--vp-c-divider);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px; z-index: 100;
+        }
+        .vp-nav-brand {
+            display: flex; align-items: center; gap: 12px;
+            text-decoration: none; color: var(--vp-c-text-1);
+            font-weight: 600; font-size: 16px;
+        }
+        .vp-nav-links { display: flex; gap: 24px; list-style: none; }
+        .vp-nav-links a {
+            text-decoration: none; color: var(--vp-c-text-2);
+            font-size: 14px; font-weight: 500; transition: color 0.2s;
+        }
+        .vp-nav-links a:hover, .vp-nav-links a.active { color: var(--vp-c-brand); }
+        .vp-nav-social { display: flex; gap: 16px; }
+        .vp-nav-social a { color: var(--vp-c-text-3); transition: color 0.2s; }
+        .vp-nav-social a:hover { color: var(--vp-c-text-1); }
+
+        /* ===== LAYOUT ===== */
+        .vp-layout {
+            display: flex; margin-top: var(--vp-nav-height);
+            min-height: calc(100vh - var(--vp-nav-height));
+        }
+
+        /* ===== SIDEBAR ===== */
+        .vp-sidebar {
+            position: fixed; top: var(--vp-nav-height); left: 0;
+            width: var(--vp-sidebar-width);
+            height: calc(100vh - var(--vp-nav-height));
+            overflow-y: auto; padding: 24px 20px;
+            border-right: 1px solid var(--vp-c-divider);
+            background: var(--vp-c-bg);
+        }
+        .vp-sidebar-group { margin-bottom: 24px; }
+        .vp-sidebar-group-title {
+            font-size: 13px; font-weight: 700; color: var(--vp-c-text-1);
+            text-transform: uppercase; letter-spacing: 0.4px;
+            margin-bottom: 8px; padding: 4px 0;
+        }
+        .vp-sidebar-items { list-style: none; }
+        .vp-sidebar-items a {
+            display: block; padding: 6px 12px; font-size: 14px;
+            color: var(--vp-c-text-2); text-decoration: none;
+            border-radius: 6px; transition: all 0.15s;
+        }
+        .vp-sidebar-items a:hover { background: var(--vp-c-bg-soft); color: var(--vp-c-text-1); }
+        .vp-sidebar-items a.active {
+            background: rgba(1, 118, 211, 0.08); color: var(--vp-c-brand); font-weight: 600;
+        }
+
+        /* ===== CONTENT ===== */
+        .vp-content {
+            margin-left: var(--vp-sidebar-width);
+            flex: 1; max-width: 780px; padding: 32px 48px 96px;
+        }
+        .vp-content h1 {
+            font-size: 32px; font-weight: 700; line-height: 1.25;
+            margin-bottom: 8px; letter-spacing: -0.02em;
+        }
+        .vp-content h2 {
+            font-size: 24px; font-weight: 600; margin-top: 48px; margin-bottom: 16px;
+            padding-bottom: 12px; border-bottom: 1px solid var(--vp-c-divider);
+        }
+        .vp-content h3 {
+            font-size: 18px; font-weight: 600; margin-top: 32px; margin-bottom: 12px;
+        }
+        .vp-content p { margin-bottom: 16px; font-size: 15px; }
+        .vp-content ul, .vp-content ol { margin-bottom: 16px; padding-left: 24px; }
+        .vp-content li { margin-bottom: 8px; font-size: 15px; }
+        .vp-content code {
+            font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+            font-size: 13px; background: var(--vp-c-bg-soft);
+            padding: 2px 6px; border-radius: 4px; color: var(--vp-c-brand-dark);
+        }
+
+        /* ===== TIME BADGE ===== */
+        .vp-time-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 14px; color: var(--vp-c-text-2); margin-bottom: 24px;
+        }
+
+        /* ===== CALLOUT ===== */
+        .vp-callout {
+            border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 14px;
+        }
+        .vp-callout-title { font-weight: 700; margin-bottom: 6px; font-size: 14px; }
+        .vp-callout p { font-size: 14px; margin-bottom: 8px; }
+        .vp-callout p:last-child { margin-bottom: 0; }
+        .vp-callout.tip { background: rgba(1, 118, 211, 0.06); border-left: 4px solid var(--vp-c-tip); }
+        .vp-callout.tip .vp-callout-title { color: var(--vp-c-tip); }
+        .vp-callout.warning { background: rgba(233, 162, 17, 0.06); border-left: 4px solid var(--vp-c-warning); }
+        .vp-callout.warning .vp-callout-title { color: var(--vp-c-warning); }
+
+        /* ===== SCREENSHOT ===== */
+        .vp-screenshot {
+            background: var(--vp-c-bg-soft); border: 2px dashed var(--vp-c-divider);
+            border-radius: 8px; padding: 40px 24px; text-align: center;
+            color: var(--vp-c-text-3); font-size: 14px; margin-bottom: 20px;
+        }
+        .vp-screenshot-icon { font-size: 32px; margin-bottom: 8px; }
+
+        /* ===== FEATURE CARDS ===== */
+        .vp-features {
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px;
+        }
+        .vp-feature-card {
+            background: var(--vp-c-bg-soft); border-radius: 8px; padding: 20px;
+        }
+        .vp-feature-card h4 {
+            font-size: 15px; font-weight: 600; margin-bottom: 6px;
+        }
+        .vp-feature-card p { font-size: 14px; color: var(--vp-c-text-2); margin: 0; }
+
+        /* ===== STEPS ===== */
+        .step-block {
+            margin-bottom: 32px;
+        }
+        .step-block h3 {
+            display: flex; align-items: center; gap: 10px;
+        }
+        .step-num {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 28px; height: 28px; border-radius: 50%;
+            background: var(--vp-c-brand); color: white;
+            font-size: 13px; font-weight: 700; flex-shrink: 0;
+        }
+
+        /* ===== PAGER ===== */
+        .vp-pager {
+            display: flex; justify-content: space-between;
+            margin-top: 48px; padding-top: 24px;
+            border-top: 1px solid var(--vp-c-divider);
+        }
+        .vp-pager a {
+            display: flex; flex-direction: column; padding: 12px 16px;
+            border: 1px solid var(--vp-c-divider); border-radius: 8px;
+            text-decoration: none; transition: border-color 0.2s; min-width: 200px;
+        }
+        .vp-pager a:hover { border-color: var(--vp-c-brand); }
+        .vp-pager .pager-label {
+            font-size: 11px; font-weight: 600; color: var(--vp-c-text-3);
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .vp-pager .pager-title {
+            font-size: 14px; font-weight: 500; color: var(--vp-c-brand); margin-top: 4px;
+        }
+        .vp-pager .prev { text-align: left; }
+        .vp-pager .next { text-align: right; margin-left: auto; }
+
+        @media (max-width: 960px) {
+            .vp-sidebar { display: none; }
+            .vp-content { margin-left: 0; padding: 24px; }
+            .vp-features { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="vp-nav">
+    <a href="index.html" class="vp-nav-brand">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" alt="Salesforce" height="24" style="height:24px;" />
+        Agent & App Development Workshop
+    </a>
+    <div></div>
+</nav>
+
+<!-- LAYOUT -->
+<div class="vp-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="vp-sidebar">
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Workshop</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="index.html" >Overview</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Before the Session</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="setup.html" >Setup</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Hands-On</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="inspect-app.html" class="active">Inspect the App</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Solo Admin Path</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="add-picklist.html" >1. Add the Deferred Status</a></li>
+                <li><a href="promote-picklist.html" >2. Promote to Production</a></li>
+            </ul>
+        </div>
+                <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Team Path</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="team-path.html" >The Team Path</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">AI-Accelerated Path</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="afv-walkthrough.html" >3. Agentforce Vibes Walkthrough</a></li>
+                <li><a href="build-leaderboard.html" >4. Build the Leaderboard</a></li>
+                <li><a href="deploy-verify.html" >5. Deploy &amp; Verify</a></li>
+                <li><a href="promote-to-prod.html" >6. Promote to Production</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Wrap Up</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="whats-next.html" >What's Next</a></li>
+                <li><a href="troubleshooting.html" >Troubleshooting</a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="vp-content">
+
+        <h1>Inspect the App</h1>
+        <div class="vp-time-badge">&#128339; <strong>2 minutes</strong></div>
+
+        <p>The Learning Management app is a fully configured minimal custom application that Connected Executive Education (CEE) built on the Salesforce Platform. Before you start building with Agentforce Vibes, take a brief tour of the core building blocks.</p>
+
+        <h2>Open the app</h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">1</span> Navigate to the Learning Management app</h3>
+            <p>If you haven't already, in your sandbox, click the <strong>App Launcher</strong> (the grid icon in the top left) and search for <strong>Learning Management</strong>. Click to open it.</p>
+            <p>You should see the Connected Executive Education dashboard with a Course Enrollments table.</p>
+
+            <div style="margin-top: 12px;">
+                <img src="../images/dashboard-screenshot.png" alt="The Learning Management dashboard" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+        </div>
+
+        <h2>Explore the data</h2>
+
+        <p>The app is built on three custom objects that work together. Click each tab in the navigation bar to explore the data. You may need to switch the list view to <strong>All</strong> to see all the records.</p>
+
+        <div class="step-block">
+            <h3><span class="step-num">2</span> Courses</h3>
+            <p>The <strong>Courses</strong> object stores all offerings in CEE's executive education catalog. Each record has a Course ID (e.g. COURSE-0012) and a Title (e.g. "Executive Leadership Essentials").</p>
+            <p>Click the <strong>Courses</strong> tab to browse the catalog. There are 8 courses available.</p>
+
+            <div style="margin-top: 12px;">
+                <img src="../images/courses-list.png" alt="Courses list view" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">3</span> Students</h3>
+            <p>The <strong>Students</strong> object captures learner profiles for individuals enrolled in CEE's executive programs. Each record has a Student ID (e.g. STU-0018), Email, First Name, and Last Name.</p>
+            <p>Click the <strong>Students</strong> tab to see enrolled learners. There are 12 students.</p>
+
+            <div style="margin-top: 12px;">
+                <img src="../images/students-list.png" alt="Students list view" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">4</span> Enrollments</h3>
+            <p>The <strong>Enrollments</strong> object connects students to their courses and tracks progress. Each record has an Enrollment ID (e.g. ENR-0035), a lookup to Course, Enrollment Date, Status, and a lookup to Student.</p>
+            <p>Click the <strong>Enrollments</strong> tab to see how students are progressing. There are 23 enrollments.</p>
+
+            <div style="margin-top: 12px;">
+                <img src="../images/enrollments-list.png" alt="Enrollments list view" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+        </div>
+
+        <h2>The dashboard</h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">5</span> Return to the dashboard</h3>
+            <p>Click the <strong>Learning Management</strong> tab to return to the main dashboard. This is the page you'll be enhancing — by the end of the workshop, you'll have added a <strong>Top Learners Leaderboard</strong> widget right here.</p>
+
+            <div style="margin-top: 12px;">
+                <img src="../images/dashboard-arrow.png" alt="Dashboard with arrow showing where the leaderboard will go" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+
+            <div class="vp-callout tip">
+                <div class="vp-callout-title">Save this screenshot</div>
+                <p>Right-click the image above and save it to your computer. You'll use this screenshot later to guide Agentforce Vibes on where to position the new widget on the dashboard.</p>
+            </div>
+        </div>
+
+        <div class="vp-callout tip">
+            <div class="vp-callout-title">What you just learned</div>
+            <p>The app has three objects — <strong>Courses</strong>, <strong>Students</strong>, and <strong>Enrollments</strong> — and a dashboard that aggregates enrollment data. Agentforce Vibes will use this same metadata when you prompt it to build the leaderboard.</p>
+        </div>
+
+        <!-- PAGER -->
+        <nav class="vp-pager">
+            <a href="setup.html" class="prev">
+                <span class="pager-label">Previous</span>
+                <span class="pager-title">Setup</span>
+            </a>
+            <a href="add-picklist.html" class="next">
+                <span class="pager-label">Next</span>
+                <span class="pager-title">1. Add the Deferred Status</span>
+            </a>
+        </nav>
+
+    </main>
+</div>
+
+</body>
+</html>
