@@ -42,23 +42,12 @@ export default function SetupPage() {
             </div>
         </div>
 
-        <h2>Enable Change Management</h2>
-
-        <div class="step-block">
-            <h3><span class="step-num">5</span> Turn on Org-to-Org Metadata Deployment</h3>
-            <p>Inside the fullcopy sandbox, go to <strong>Setup &rarr;</strong> search for <code>change</code> in Quick Find <strong>&rarr; Change Management</strong> under Development. Toggle on <strong>Org-to-Org Metadata Deployment (Beta)</strong>.</p>
-            <p>This enables metadata deployment between your sandbox and production — used in both Part 1 and Part 2.</p>
-            <div style="margin-top: 12px;">
-                <img src="./images/change-management.jpg" alt="Change Management settings in Setup" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
-            </div>
-        </div>
-
         <h2>Activate MCP Servers</h2>
 
         <p>MCP (Model Context Protocol) servers connect Agentforce Vibes to your org's capabilities. You need to activate two servers — they're used in the AI-Accelerated path (Part 2) of the workshop.</p>
 
         <div class="step-block">
-            <h3><span class="step-num">6</span> Navigate to MCP Servers</h3>
+            <h3><span class="step-num">5</span> Navigate to MCP Servers</h3>
             <p>In your sandbox, go to <strong>Setup &rarr;</strong> search for <code>mcp ser</code> in Quick Find <strong>&rarr; MCP Servers</strong> under Integrations &gt; API Catalog. You'll see a list of available servers, all with status <strong>Inactive</strong>.</p>
             <div style="margin-top: 12px;">
                 <img src="./images/mcp-servers-list.jpg" alt="MCP Servers list in Setup" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
@@ -66,7 +55,7 @@ export default function SetupPage() {
         </div>
 
         <div class="step-block">
-            <h3><span class="step-num">7</span> Activate salesforce-api-context</h3>
+            <h3><span class="step-num">6</span> Activate salesforce-api-context</h3>
             <p>Click <strong>salesforce-api-context</strong> from the list, then click <strong>Activate</strong>. This server provides Agentforce Vibes with Salesforce API context so it can generate code that works with your org's specific configuration.</p>
             <div style="margin-top: 12px;">
                 <img src="./images/mcp-server-active.jpg" alt="MCP Server activated" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
@@ -74,7 +63,7 @@ export default function SetupPage() {
         </div>
 
         <div class="step-block">
-            <h3><span class="step-num">8</span> Activate metadata-experts</h3>
+            <h3><span class="step-num">7</span> Activate metadata-experts</h3>
             <p>Go back to the MCP Servers list and click <strong>metadata-experts</strong>, then click <strong>Activate</strong>. This server allows Agentforce Vibes to discover and inspect your org's metadata — objects, fields, relationships, and configurations.</p>
         </div>
 

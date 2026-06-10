@@ -58,6 +58,11 @@ export default function PromoteToProdPage() {
             <div style="margin-top: 12px;">
                 <img src="./images/deploy-new-env-filled.jpg" alt="Deploy Changes dialog showing existing production environment selected" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
             </div>
+
+            <div class="vp-callout tip">
+                <div class="vp-callout-title">Note</div>
+                <p>You will not see the Deploy Options button available until you have selected metadata to deploy in the previous steps.</p>
+            </div>
         </div>
 
         <h2>Deploy</h2>
