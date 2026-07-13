@@ -291,8 +291,17 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
         <h2>Open Agentforce Vibes</h2>
 
         <div class="step-block">
-            <h3><span class="step-num">1</span> Launch from the Setup Menu</h3>
-            <p>In your sandbox, click the <strong>gear icon</strong> in the top right to open the Setup Menu. You'll see <strong>Agentforce Vibes</strong> listed with an external link icon. Click it to launch.</p>
+            <h3><span class="step-num">1</span> Enable Einstein</h3>
+            <p>In your sandbox, click the <strong>gear icon</strong> in the top right to open the Setup Menu and select <strong>Setup</strong>. In the <strong>Quick Find</strong> box, enter and select <strong>Einstein Setup</strong>. Toggle on <strong>Turn on Einstein</strong>.</p>
+
+            <div style="margin-top: 12px;">
+                <img src="./images/afv-einstein-setup.jpg" alt="Einstein Setup with Turn on Einstein toggled on" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+            </div>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">2</span> Launch from the Setup Menu</h3>
+            <p>Click the <strong>gear icon</strong> in the top right to open the Setup Menu. You'll see <strong>Agentforce Vibes</strong> listed with an external link icon. Click it to launch.</p>
 
             <div style="margin-top: 12px;">
                 <img src="./images/afv-setup-menu.jpg" alt="Setup Menu showing Agentforce Vibes option" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
@@ -300,7 +309,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
         </div>
 
         <div class="step-block">
-            <h3><span class="step-num">2</span> Wait for the environment to load</h3>
+            <h3><span class="step-num">3</span> Wait for the environment to load</h3>
             <p>Agentforce Vibes will set up your virtual environment. This may take a few minutes on first launch — leave the page open and it will refresh when it's ready.</p>
 
             <div style="margin-top: 12px;">
@@ -311,7 +320,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
         <h2>The IDE</h2>
 
         <div class="step-block">
-            <h3><span class="step-num">3</span> Welcome page and file explorer</h3>
+            <h3><span class="step-num">4</span> Welcome page and file explorer</h3>
             <p>Once loaded, you'll see the <strong>Agentforce Vibes IDE</strong> welcome page. The left panel shows the <strong>Explorer</strong> with your <code>dx-project</code> — this is the Salesforce DX project structure you will work with. Notice that it is automatically connected to the sandbox. If you don't see the Explorer panel, click the file icon in the top of the left activity bar to open it.</p>
 
             <div style="margin-top: 12px;">
@@ -320,7 +329,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
         </div>
 
         <div class="step-block">
-            <h3><span class="step-num">4</span> The "Let's Vibe" sidebar</h3>
+            <h3><span class="step-num">5</span> The "Let's Vibe" sidebar</h3>
             <p>Click the <strong>Agentforce Vibes</strong> icon in the left activity bar to open the <strong>Let's Vibe</strong> sidebar. You may be prompted to enable Agentforce Vibes — click <strong>Enable</strong> to proceed. This is your starting point for working with the AI agent.</p>
             <p>At the bottom of the sidebar, notice the <strong>Plan</strong> and <strong>Act</strong> mode toggles and the prompt input where you'll type your tasks.</p>
 
@@ -332,8 +341,8 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
         <h2>MCP Servers</h2>
 
         <div class="step-block">
-            <h3><span class="step-num">5</span> Connected MCP servers</h3>
-            <p>Click <strong>Manage MCP Servers</strong> from the Let's Vibe sidebar to expand the panel and see all three connected servers:</p>
+            <h3><span class="step-num">6</span> Connected MCP servers</h3>
+            <p>Click the <strong>Toolkit</strong> tab and then <strong>MCP Servers</strong> to see all three connected servers:</p>
             <ul>
                 <li><strong>Salesforce DX</strong> — access to org metadata, deployment, and source tracking</li>
                 <li><strong>Salesforce API Context</strong> — understands your org's API structure and data model</li>
@@ -354,8 +363,8 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
         <h2>Skills</h2>
 
         <div class="step-block">
-            <h3><span class="step-num">6</span> What the agent can do</h3>
-            <p>Click the <strong>Skills</strong> tab in the sidebar to see the list of available skills. Skills define <strong>what the agent can do</strong> — the actions it can take and the systems it can interact with.</p>
+            <h3><span class="step-num">7</span> What the agent can do</h3>
+            <p>In the <strong>Toolkit</strong> tab, select <strong>Skills</strong> to see the list of available skills. Skills define <strong>what the agent can do</strong> — the actions it can take and the systems it can interact with.</p>
 
             <div style="margin-top: 12px;">
                 <img src="./images/afv-skills-pane.jpg" alt="Skills from the left pane" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
@@ -379,8 +388,8 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
         <h2>Rules</h2>
 
         <div class="step-block">
-            <h3><span class="step-num">7</span> How the agent behaves</h3>
-            <p>Click the <strong>Rules</strong> tab to see the governance guardrails. Rules define <strong>how the agent behaves</strong> — the boundaries around security, data access, and best practices.</p>
+            <h3><span class="step-num">8</span> How the agent behaves</h3>
+            <p>In the <strong>Toolkit</strong> tab, select <strong>Rules</strong> to see the governance guardrails. Rules define <strong>how the agent behaves</strong> — the boundaries around security, data access, and best practices.</p>
             <p>Salesforce provides out-of-the-box rules like <code>a4v-expert-global-rule.md</code> that ensure every interaction operates inside a defined, governed system. These rules enforce standards around code quality, security patterns, and Salesforce platform conventions.</p>
 
             <div style="margin-top: 12px;">
@@ -391,8 +400,8 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
         <h2>Metadata Explorer</h2>
 
         <div class="step-block">
-            <h3><span class="step-num">8</span> Retrieve org metadata</h3>
-            <p>In the prompt input at the bottom, type the following prompt:</p>
+            <h3><span class="step-num">9</span> Retrieve org metadata</h3>
+            <p>Select the <strong>Chat</strong> tab, then type the following prompt in the input at the bottom:</p>
             <div class="copy-block" style="position: relative; background: var(--vp-c-bg-soft); border-radius: 8px; padding: 12px 16px; padding-right: 48px; font-size: 13px; line-height: 1.6; margin-bottom: 16px; font-family: 'SF Mono', 'Fira Code', Menlo, monospace; white-space: pre-wrap; word-wrap: break-word;">Retrieve all custom objects associated with the app Connected_Executive_Education from my org into the project folder, make sure to create a manifest before retrieving.<button onclick="navigator.clipboard.writeText(this.parentElement.childNodes[0].textContent.trim());this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)" style="position: absolute; top: 8px; right: 8px; background: var(--vp-c-bg); border: 1px solid var(--vp-c-divider); border-radius: 4px; padding: 4px 8px; cursor: pointer; font-size: 12px; color: var(--vp-c-text-2);" onmouseover="this.style.borderColor='var(--vp-c-brand)'" onmouseout="this.style.borderColor='var(--vp-c-divider)'">Copy</button></div>
             <p>Agentforce Vibes will create a manifest file and retrieve the metadata from your sandbox into the project folder.</p>
 
@@ -407,7 +416,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
         </div>
 
         <div class="step-block">
-            <h3><span class="step-num">9</span> Explore objects and fields</h3>
+            <h3><span class="step-num">10</span> Explore objects and fields</h3>
             <p>In the Explorer, expand <strong>force-app > main > default > objects</strong> to see the three custom objects: <strong>Course__c</strong>, <strong>Enrollment__c</strong>, and <strong>Student__c</strong>. Expand any object to browse its fields.</p>
 
             <div style="margin-top: 12px;">
@@ -416,7 +425,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
         </div>
 
         <div class="step-block">
-            <h3><span class="step-num">10</span> Visualize the schema</h3>
+            <h3><span class="step-num">11</span> Visualize the schema</h3>
             <p>Click on any field file to open it in the editor. Then click the <strong>Visualize</strong> button in the top right to see a visual representation of your custom objects and their relationships.</p>
 
             <div style="margin-top: 12px;">

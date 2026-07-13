@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomSite xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <allowStandardAnswersPages>false</allowStandardAnswersPages>
+    <allowStandardIdeasPages>false</allowStandardIdeasPages>
+    <allowStandardLookups>false</allowStandardLookups>
+    <allowStandardPortalPages>false</allowStandardPortalPages>
+    <allowStandardSearch>false</allowStandardSearch>
+    <browserXssProtection>true</browserXssProtection>
+    <contentSniffingProtection>true</contentSniffingProtection>
+    <referrerPolicyOriginWhenCrossOrigin>true</referrerPolicyOriginWhenCrossOrigin>
+    <clickjackProtectionLevel>AllowAllFraming</clickjackProtectionLevel>
+    <enableAuraRequests>false</enableAuraRequests>
+    <indexPage>WorkshopExtended</indexPage>
+    <masterLabel>WorkshopExtended</masterLabel>
+    <urlPathPrefix>instructions</urlPathPrefix>
+    <siteType>Visualforce</siteType>
+</CustomSite>
