@@ -52,22 +52,6 @@ export default function BuildLeaderboardPage() {
             </div>
         </div>
 
-        <h2>Preview the component</h2>
-
-        <div class="step-block">
-            <h3><span class="step-num">5</span> Open Lightning Preview</h3>
-            <p>Open the <code>learningManagementDashboard.html</code> file from the Explorer. Then open the Command Palette with <strong>Cmd + Shift + P</strong> (Mac) or <strong>Ctrl + Shift + P</strong> (Windows) and select <strong>Lightning Preview</strong> to see a live preview of the dashboard with the new leaderboard widget.</p>
-
-            <div style="margin-top: 12px;">
-                <img src="./images/build-preview-complete.jpg" alt="Lightning Preview showing the Top Learners Leaderboard on the dashboard" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
-            </div>
-
-            <div class="vp-callout warning">
-                <div class="vp-callout-title">Lightning Preview Issues?</div>
-                <p>Lightning Preview can have intermittent issues. If you encounter errors, see the <a href="#/troubleshooting">Troubleshooting</a> page for solutions or you can skip this optional preview step.</p>
-            </div>
-        </div>
-
         <div class="vp-callout tip">
             <div class="vp-callout-title">What just happened</div>
             <p>From a single natural language prompt and a screenshot, Agentforce Vibes retrieved the existing code, updated the Apex controller and LWC component, created a test class, and deployed everything — all grounded in your org's actual metadata.</p>

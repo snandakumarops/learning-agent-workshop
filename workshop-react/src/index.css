@@ -60,6 +60,7 @@
         .use-case-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 8px; border-radius: 4px; margin-bottom: 12px; display: inline-block; }
         .use-case-label.solo { background: rgba(46,132,74,0.1); color: #2e844a; }
         .use-case-label.ai { background: rgba(1,118,211,0.1); color: var(--vp-c-brand); }
+        .use-case-label.overview { background: rgba(144,164,174,0.15); color: #5a6b75; }
         .vp-content table { width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 14px; }
         .vp-content thead th { text-align: left; padding: 10px 16px; font-size: 13px; font-weight: 700; color: var(--vp-c-text-2); text-transform: uppercase; letter-spacing: 0.4px; border-bottom: 2px solid var(--vp-c-divider); background: var(--vp-c-bg-soft); }
         .vp-content tbody td { padding: 12px 16px; border-bottom: 1px solid var(--vp-c-divider); vertical-align: middle; }

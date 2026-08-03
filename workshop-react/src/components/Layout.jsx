@@ -29,18 +29,18 @@ export default function Layout() {
           </ul>
         </div>
         <div className="vp-sidebar-group">
-          <div className="vp-sidebar-group-title">Hands-On</div>
+          <div className="vp-sidebar-group-title">Application Overview</div>
           <ul className="vp-sidebar-items">
             <li><NavLink to="/inspect-app">Inspect the App</NavLink></li>
           </ul>
         </div>
         <div className="vp-sidebar-group">
-          <div className="vp-sidebar-group-title">Build Flow</div>
+          <div className="vp-sidebar-group-title">Agent Driven</div>
           <ul className="vp-sidebar-items">
-            <li><NavLink to="/afv-walkthrough">1. Agentforce Vibes Walkthrough</NavLink></li>
-            <li><NavLink to="/build-leaderboard">2. Build the Leaderboard</NavLink></li>
-            <li><NavLink to="/deploy-verify">3. Deploy &amp; Verify</NavLink></li>
-            <li><NavLink to="/promote-to-prod">4. Promote to Production</NavLink></li>
+            <li><NavLink to="/afv-walkthrough">Agentforce Vibes Walkthrough</NavLink></li>
+            <li><NavLink to="/build-leaderboard">Build the Leaderboard</NavLink></li>
+            <li><NavLink to="/deploy-verify">Deploy &amp; Verify</NavLink></li>
+            <li><NavLink to="/promote-to-prod">Promote to Production</NavLink></li>
           </ul>
         </div>
         <div className="vp-sidebar-group">

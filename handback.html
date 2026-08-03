@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AAHD Workbook — Feedback Handback</title>
+    <style>
+        :root {
+            --brand: #0176d3; --brand-dark: #014486; --bg: #ffffff; --bg-soft: #f6f6f7;
+            --text-1: #213547; --text-2: #476582; --text-3: #90a4ae; --divider: #e2e2e3;
+            --tip: #0176d3; --warning: #e9a211; --danger: #e0234e; --success: #2e844a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: var(--text-1); background: var(--bg-soft); line-height: 1.65; }
+        .wrap { max-width: 900px; margin: 0 auto; padding: 48px 24px 96px; }
+        header.hero { background: linear-gradient(135deg, #0176d3, #014486); color: #fff; border-radius: 16px; padding: 36px 40px; margin-bottom: 24px; }
+        header.hero h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+        header.hero p { font-size: 15px; opacity: 0.92; }
+        header.hero .meta { margin-top: 16px; font-size: 13px; opacity: 0.85; }
+        .toc { background: var(--bg); border: 1px solid var(--divider); border-radius: 12px; padding: 18px 24px; margin-bottom: 24px; font-size: 14px; }
+        .toc strong { display: block; margin-bottom: 8px; color: var(--brand-dark); }
+        .toc a { color: var(--brand); text-decoration: none; margin-right: 16px; }
+        .card { background: var(--bg); border: 1px solid var(--divider); border-radius: 12px; padding: 28px 32px; margin-bottom: 24px; }
+        .site-band { border-radius: 12px; padding: 20px 32px; margin: 32px 0 16px; color: #fff; }
+        .site-band.ext { background: linear-gradient(135deg,#014486,#0176d3); }
+        .site-band.mini { background: linear-gradient(135deg,#3b2d8c,#6b3fd4); }
+        .site-band h2 { font-size: 22px; font-weight: 700; margin-bottom: 4px; color: #fff; }
+        .site-band p { font-size: 13.5px; opacity: 0.9; }
+        h2 { font-size: 22px; font-weight: 700; color: var(--brand-dark); margin-bottom: 4px; }
+        h2 .num { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: var(--brand); color: #fff; font-size: 15px; margin-right: 10px; vertical-align: middle; }
+        .section-sub { color: var(--text-2); font-size: 14px; margin-bottom: 16px; }
+        h3.pg { font-size: 16px; font-weight: 700; color: var(--text-1); margin: 20px 0 8px; padding-bottom: 6px; border-bottom: 2px solid var(--bg-soft); }
+        h3.pg .file { font-weight: 500; font-size: 12.5px; color: var(--text-3); font-family: 'SF Mono', Menlo, monospace; }
+        ul { padding-left: 22px; margin-bottom: 8px; }
+        li { margin-bottom: 6px; font-size: 14.5px; }
+        li strong { color: var(--text-1); }
+        .tag { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; padding: 2px 8px; border-radius: 4px; margin-right: 6px; }
+        .tag.done { background: rgba(46,132,74,0.12); color: var(--success); }
+        .tag.open { background: rgba(233,162,17,0.15); color: #b07905; }
+        .tag.info { background: rgba(1,118,211,0.1); color: var(--brand); }
+        .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 14px; }
+        .callout.warn { background: rgba(233,162,17,0.08); border-left: 4px solid var(--warning); }
+        .callout.tip { background: rgba(1,118,211,0.06); border-left: 4px solid var(--tip); }
+        .callout .t { font-weight: 700; margin-bottom: 4px; }
+        table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13.5px; }
+        th { background: var(--bg-soft); text-align: left; padding: 9px 12px; border: 1px solid var(--divider); font-weight: 700; }
+        td { padding: 9px 12px; border: 1px solid var(--divider); vertical-align: top; }
+        a { color: var(--brand); }
+        code { font-family: 'SF Mono', Menlo, monospace; font-size: 12.5px; background: var(--bg-soft); padding: 1px 5px; border-radius: 4px; color: var(--brand-dark); }
+        .links a { display: inline-block; margin-right: 18px; font-weight: 600; font-size: 14px; }
+        .foot { text-align: center; color: var(--text-3); font-size: 12px; margin-top: 24px; }
+    </style>
+</head>
+<body>
+<div class="wrap">
+
+    <header class="hero">
+        <h1>AAHD Workbook — Feedback Handback</h1>
+        <p>Changes made to the Agent, App &amp; Headless Development workbook in response to facilitator feedback — organized by workbook and section so you can review alongside each page.</p>
+        <div class="meta">Branch: <code>feedback/workshop-updates</code> &nbsp;·&nbsp; Both Extended and Mini sites updated &nbsp;·&nbsp; Source: facilitator workshop walkthrough</div>
+    </header>
+
+    <div class="toc">
+        <strong>Jump to</strong>
+        <a href="#extended">Extended workbook</a>
+        <a href="#mini">Mini workbook</a>
+        <a href="#decisions">Decisions &amp; verifications</a>
+        <a href="#open">Feedback-on-feedback &amp; open questions</a>
+    </div>
+
+    <div class="card links">
+        <strong style="display:block;margin-bottom:8px;">Preview (staging — temporary, expires with the scratch org):</strong>
+        <a href="https://java-drive-9310-dev-ed.scratch.my.salesforce-sites.com/instructions/resource/workshop_guide_extended/extended/index.html" target="_blank">▶ Extended workbook</a>
+        <a href="https://java-drive-9310-dev-ed.scratch.my.salesforce-sites.com/resource/workshop_guide/index.html" target="_blank">▶ Mini workbook</a>
+    </div>
+
+    <!-- ============ EXTENDED ============ -->
+    <div class="site-band ext" id="extended">
+        <h2>Extended workbook — changes by section</h2>
+        <p>The full ~4-hour workshop covering all paths. All items below are done and live on the Extended preview.</p>
+    </div>
+
+    <div class="card">
+        <h3 class="pg">Overview <span class="file">index.html</span></h3>
+        <ul>
+            <li>Reframed to the deck's <strong>2&times;2 model</strong> — "How you work" (Solo / Coordinated) &times; "How you develop" (Human Driven / Agent Driven), replacing the old "two scenarios / three paths" language.</li>
+            <li>Intro reworded (dropped "two development scenarios"); closing line now points to the Solo, Coordinated, and Agent Driven paths.</li>
+            <li><strong>Agenda restructured</strong> into four groups matching the sidebar (Application Overview / Solo / Coordinated / Agent Driven), numbered per-path instead of a misleading 1&ndash;7, with corrected times and distinct group colors.</li>
+            <li>Removed the decorative <strong>lifecycle diagram</strong> (wasn't referenced or used on the page).</li>
+            <li>Time badge set to <strong>~4 hours</strong>; removed "enable Change Management" from the Before-the-session bullet.</li>
+        </ul>
+
+        <h3 class="pg">Setup <span class="file">setup.html</span></h3>
+        <ul>
+            <li>Removed the <strong>Change Management "Org-to-Org Metadata Deployment (Beta)"</strong> step — the beta is gone.</li>
+            <li>Moved <strong>MCP server activation</strong> out of Setup (relocated into the Agentforce Vibes Walkthrough).</li>
+            <li>Now a 4-step page; time badge set to <strong>10 minutes</strong>.</li>
+        </ul>
+
+        <h3 class="pg">Application Overview <span class="file">inspect-app.html</span></h3>
+        <ul>
+            <li>Renamed the sidebar section "Hands-On" &rarr; <strong>Application Overview</strong> (page link stays "Inspect the App" to avoid a duplicate label).</li>
+            <li>Screenshot note: the saved dashboard screenshot was kept (it's used later in the Build step).</li>
+        </ul>
+
+        <h3 class="pg">Solo path <span class="file">add-picklist.html, promote-picklist.html</span></h3>
+        <ul>
+            <li>Renamed "Solo Admin Path" &rarr; <strong>Solo</strong> throughout.</li>
+            <li>Added a short <strong>"what you'll do in the Solo path"</strong> intro before the first exercise.</li>
+            <li>First page time 12 &rarr; <strong>10 minutes</strong>; replaced stale "Part 1 / Part 2" wording with path names.</li>
+        </ul>
+
+        <h3 class="pg">Coordinated <span class="file">team-path.html</span></h3>
+        <ul>
+            <li>Renamed "Team Path" &rarr; <strong>Coordinated</strong> (page titled "Coordinated Development").</li>
+            <li>Fixed a <strong>logic bug</strong>: the page claimed "you've seen what a solo admin and an AI-accelerated developer can do," but Agent Driven comes after — corrected to reference Solo only.</li>
+            <li>Demo button relabeled <strong>"Launch the DevOps Center Demo"</strong>, with a DevOps Center lead-in and an embedded screenshot showing exactly which card to click on the demo landing page.</li>
+        </ul>
+
+        <h3 class="pg">Agent Driven <span class="file">afv-walkthrough.html, build-leaderboard.html</span></h3>
+        <ul>
+            <li>Renamed "AI-Accelerated Path" &rarr; <strong>Agent Driven</strong>.</li>
+            <li><strong>MCP server activation added</strong> as the first steps of the Walkthrough, with a strengthened "work in your sandbox, not production" warning; page renumbered 1&ndash;14.</li>
+            <li>Kept the <strong>Enable Einstein</strong> step (verified required).</li>
+            <li>Removed the <strong>Lightning Preview</strong> step from Build the Leaderboard.</li>
+        </ul>
+
+        <h3 class="pg">Promote to Production <span class="file">promote-to-prod.html</span></h3>
+        <ul>
+            <li>Replaced "connected during Part 1" with a path-name reference.</li>
+            <li>Kept the DX Inspector flow for now (see open question H1).</li>
+        </ul>
+
+        <h3 class="pg">Wrap Up <span class="file">whats-next.html, troubleshooting.html</span></h3>
+        <ul>
+            <li><strong>Fixed navigation bug</strong> — both pagers had pointed to Overview; corrected to the real order and removed the dangling "Next" on the final page.</li>
+            <li><strong>Fixed a dead link</strong> — the Agentforce Vibes doc link was a 404; replaced with the valid Salesforce Help URL.</li>
+            <li>Trimmed the Lightning Preview references in Troubleshooting (renamed the section "Testing and Display Issues").</li>
+        </ul>
+
+        <h3 class="pg">Across all pages</h3>
+        <ul>
+            <li>Removed step numbers from sidebar links, pager labels, and page titles (kept the numbered circles inside each exercise).</li>
+            <li>Sidebar section renames applied consistently across all 12 pages.</li>
+        </ul>
+    </div>
+
+    <!-- ============ MINI ============ -->
+    <div class="site-band mini" id="mini">
+        <h2>Mini workbook — changes by section</h2>
+        <p>The shorter session. Scoped to <strong>Agent-Driven-only</strong> — its content now reflects only the pages it actually contains (Application Overview + Agent Driven). All items done and live on the Mini preview.</p>
+    </div>
+
+    <div class="card">
+        <h3 class="pg">Overview <span class="file">IndexPage.jsx</span></h3>
+        <ul>
+            <li>Same 2&times;2 reframe as Extended, but the closing line focuses on the <strong>Agent Driven</strong> path only.</li>
+            <li><strong>Scenario trimmed</strong> — dropped the Deferred-status (Solo) task; kept only the Leaderboard task the Mini actually builds.</li>
+            <li><strong>Agenda</strong> shows only Application Overview + Agent Driven (Solo group removed), numbered per-group with corrected times.</li>
+            <li>Time badge set to <strong>1&ndash;1.5 hours</strong> to match the deck's Agent-Driven session timing.</li>
+        </ul>
+
+        <h3 class="pg">Sidebar (shared nav) <span class="file">components/Layout.jsx</span></h3>
+        <ul>
+            <li>"Hands-On" &rarr; <strong>Application Overview</strong>; "Build Flow" &rarr; <strong>Agent Driven</strong>; removed the numbers from the links.</li>
+        </ul>
+
+        <h3 class="pg">Setup <span class="file">SetupPage.jsx</span></h3>
+        <ul>
+            <li>Removed MCP activation (moved into the Walkthrough); now a 4-step page; time badge <strong>10 minutes</strong>. <em>(Mini never had the Change Management beta step.)</em></li>
+        </ul>
+
+        <h3 class="pg">Agent Driven <span class="file">AfvWalkthroughPage.jsx, BuildLeaderboardPage.jsx</span></h3>
+        <ul>
+            <li>MCP activation added as the first steps, warning strengthened, renumbered 1&ndash;14 — mirrors Extended.</li>
+            <li>Removed the Lightning Preview step from Build the Leaderboard.</li>
+        </ul>
+
+        <h3 class="pg">Wrap Up <span class="file">WhatsNextPage.jsx, TroubleshootingPage.jsx, PromoteToProdPage.jsx</span></h3>
+        <ul>
+            <li>Same navigation-bug and dead-link fixes as Extended; de-numbered a stale pager label.</li>
+            <li>Trimmed Lightning Preview references in Troubleshooting.</li>
+            <li>Promote page: "Part 1" &rarr; "connected earlier" (neutral, since the Mini has no Solo path).</li>
+        </ul>
+    </div>
+
+    <!-- ============ DECISIONS ============ -->
+    <div class="card" id="decisions">
+        <h2><span class="num">✓</span> Decisions &amp; verifications (both sites)</h2>
+        <p class="section-sub">Choices made during the work, and things checked against the org, the deck, or live links.</p>
+        <table>
+            <tr><th style="width:24%;">Item</th><th>Decision / finding</th></tr>
+            <tr><td><strong>Einstein required?</strong></td><td>Verified in-org: Einstein <strong>must</strong> be enabled to reach Agentforce Vibes, so the step was kept.</td></tr>
+            <tr><td><strong>Lightning Preview</strong></td><td>Confirmed unreliable → <strong>removed</strong> from the build step and de-emphasized in Troubleshooting.</td></tr>
+            <tr><td><strong>Path names</strong></td><td>Used the deck's canonical terms: Solo / Coordinated / Agent Driven (+ Human Driven in the 2&times;2).</td></tr>
+            <tr><td><strong>"Application Overview"</strong></td><td>Renamed the section group only; kept the page named "Inspect the App" to avoid a duplicated sidebar label.</td></tr>
+            <tr><td><strong>Overview framing</strong></td><td>Built the full 2&times;2 (beyond a minimal rename) as the clearest way to resolve the inconsistency.</td></tr>
+            <tr><td><strong>Timing</strong></td><td>Applied "10 minutes" only to the two places the feedback called out (Setup, Solo) — not uniformly. Extended Overview ~4h; Coordinated stays 5 min.</td></tr>
+            <tr><td><strong>What's Next links</strong></td><td>DevSecOps Guide + Change Management verified working; DevSecOps (not DevOps) is intentional per the deck.</td></tr>
+            <tr><td><strong>Mini scope</strong></td><td>Decided Mini = Agent-Driven-only, matching the pages it actually contains.</td></tr>
+            <tr><td><strong>Mini duration</strong></td><td>Set the Mini time badge to <strong>1&ndash;1.5 hours</strong> to match the deck (the source of truth for session timing).</td></tr>
+        </table>
+    </div>
+
+    <!-- ============ OPEN ============ -->
+    <div class="card" id="open">
+        <h2><span class="num">?</span> Notes &amp; open questions</h2>
+        <p class="section-sub">A few items we looked into while working through the feedback, plus decisions that still need an owner.</p>
+
+        <h3 class="pg">Items we investigated</h3>
+        <ul>
+            <li><span class="tag info">Note</span> <strong>Enable Einstein step</strong> — we tested whether Einstein is required to reach Agentforce Vibes. It is, so we kept the step in place.</li>
+            <li><span class="tag info">Note</span> <strong>Vibes permission step</strong> — we looked for the permission-assignment step flagged for removal; it isn't present in the current workbook, so no change was needed.</li>
+            <li><span class="tag info">Note</span> <strong>Dashboard screenshot</strong> — we confirmed the saved dashboard screenshot is used later (it's pasted into the Build prompt to mark widget placement), so we kept it and left the existing "you'll use this later" callout.</li>
+        </ul>
+
+        <h3 class="pg">Open questions (need a decision / owner)</h3>
+        <ul>
+            <li><span class="tag open">Open</span> <strong>Promote via Agentforce Vibes?</strong> — the suggestion to have Vibes do the promote (instead of DX Inspector) is a good one; we left the DX Inspector flow in place for now because the deck still shows the agent working <em>inside</em> the DX Inspector / DevOps Center pipeline. Worth a product decision, plus confirming Vibes can deploy to prod.</li>
+            <li><span class="tag open">Open</span> <strong>Demo link redirect</strong> — the workbook links the correct Navattic URL, but Navattic itself redirects it to a different guide. This can't be fixed from the workbook; it needs the Navattic project reconfigured or a corrected share link.</li>
+            <li><span class="tag open">Open</span> <strong>Governance in the agenda</strong> — the agenda could include Governance, but there's currently no Governance section in the workbook (it's in the deck only). We left it out for now to avoid pointing to a section that doesn't exist yet.</li>
+            <li><span class="tag open">Open</span> <strong>Move the scenario off the Overview</strong> — moving the CEE scenario + task requests into the individual sections is a good direction; we parked it as a larger content reorganization for a follow-up pass.</li>
+        </ul>
+
+        <div class="callout warn">
+            <div class="t">Still to do (outside this pass)</div>
+            <p><strong>Screenshots</strong> — the Inspect list-view images currently show only the ID field. Updating them requires changing the data in the workshop org, cutting a new org template, and updating OrgFarm, so it's tracked separately from this pass. <em>(The Agentforce Vibes UI screenshots have already been refreshed for Vibes 2.0.)</em></p>
+        </div>
+
+        <div class="callout tip">
+            <div class="t">Explicitly out of scope</div>
+            <p>Building a hands-on <strong>DevOps Center</strong> exercise (flagged in the feedback as separate) and a broader full deck-alignment rewrite are deferred to future work.</p>
+        </div>
+    </div>
+
+    <p class="foot">Generated for the AAHD workshop team · changes live on the staging preview linked above.</p>
+
+</div>
+</body>
+</html>

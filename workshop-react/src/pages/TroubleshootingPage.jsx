@@ -49,7 +49,7 @@ export default function TroubleshootingPage() {
             <li>If your LWC references an Apex class, make sure the Apex is deployed before the LWC.</li>
         </ul>
 
-        <h2>Lightning Preview and Testing Issues</h2>
+        <h2>Testing and Display Issues</h2>
 
         <h3>App looks different than expected</h3>
         <p>This is normal. Generative AI incorporates randomness, so your app's appearance may vary slightly from the screenshots in this guide. As long as the leaderboard widget displays the correct data, it's working correctly.</p>
@@ -60,7 +60,6 @@ export default function TroubleshootingPage() {
         <h3>Changes not showing up</h3>
         <ul>
             <li>Try clearing your browser cache or doing a hard refresh (<strong>Cmd + Shift + R</strong> / <strong>Ctrl + Shift + R</strong>).</li>
-            <li>Lightning preview may have port conflicts — check the terminal for any port-related errors.</li>
         </ul>
 
         <div class="vp-callout tip">
@@ -69,13 +68,9 @@ export default function TroubleshootingPage() {
         </div>
 
         <nav class="vp-pager">
-            <a href="#/" class="prev">
+            <a href="#/whats-next" class="prev">
                 <span class="pager-label">Previous</span>
-                <span class="pager-title">Overview</span>
-            </a>
-            <a href="#/" class="next">
-                <span class="pager-label">Next</span>
-                <span class="pager-title">Overview</span>
+                <span class="pager-title">What's Next</span>
             </a>
         </nav>`}} />
   );

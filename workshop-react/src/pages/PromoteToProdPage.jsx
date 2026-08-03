@@ -53,7 +53,7 @@ export default function PromoteToProdPage() {
 
         <div class="step-block">
             <h3><span class="step-num">5</span> Select the existing production environment</h3>
-            <p>Click <strong>Deploy Options</strong> to open the Deploy Changes dialog. Switch to the <strong>Existing Environment</strong> tab — you'll see the <strong>production</strong> org you connected during Part 1. Select it.</p>
+            <p>Click <strong>Deploy Options</strong> to open the Deploy Changes dialog. Switch to the <strong>Existing Environment</strong> tab — you'll see the <strong>production</strong> org you connected earlier. Select it.</p>
 
             <div style="margin-top: 12px;">
                 <img src="./images/deploy-new-env-filled.jpg" alt="Deploy Changes dialog showing existing production environment selected" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />

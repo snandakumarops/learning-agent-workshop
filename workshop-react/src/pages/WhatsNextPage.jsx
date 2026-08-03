@@ -7,7 +7,7 @@ export default function WhatsNextPage() {
         <h2>Resources</h2>
 
         <ul>
-            <li><strong>Agentforce Vibes Documentation</strong> — <a href="https://developer.salesforce.com/docs/platform/agentforce-vibes/overview" target="_blank">developer.salesforce.com/docs/platform/agentforce-vibes</a></li>
+            <li><strong>Agentforce Vibes Documentation</strong> — <a href="https://help.salesforce.com/s/articleView?id=sf.agentforce_vibes.htm" target="_blank">Agentforce Vibes on Salesforce Help</a></li>
             <li><strong>Salesforce DevSecOps Guide</strong> — <a href="https://www.salesforce.com/platform/resources/the-salesforce-devsecops-guide/" target="_blank">The Salesforce DevSecOps Guide</a></li>
             <li><strong>Change Management</strong> — <a href="https://help.salesforce.com/s/articleView?id=sf.change_management.htm" target="_blank">Deploy metadata between orgs</a></li>
         </ul>
@@ -20,11 +20,11 @@ export default function WhatsNextPage() {
         <nav class="vp-pager">
             <a href="#/promote-to-prod" class="prev">
                 <span class="pager-label">Previous</span>
-                <span class="pager-title">6. Promote to Production</span>
+                <span class="pager-title">Promote to Production</span>
             </a>
-            <a href="#/" class="next">
+            <a href="#/troubleshooting" class="next">
                 <span class="pager-label">Next</span>
-                <span class="pager-title">Overview</span>
+                <span class="pager-title">Troubleshooting</span>
             </a>
         </nav>`}} />
   );

@@ -64,6 +64,8 @@
         .use-case-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 8px; border-radius: 4px; margin-bottom: 12px; display: inline-block; }
         .use-case-label.solo { background: rgba(46,132,74,0.1); color: #2e844a; }
         .use-case-label.ai { background: rgba(1,118,211,0.1); color: var(--vp-c-brand); }
+        .use-case-label.overview { background: rgba(144,164,174,0.15); color: #5a6b75; }
+        .use-case-label.coordinated { background: rgba(124,77,255,0.1); color: #6b3fd4; }
         .vp-button { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: var(--vp-c-brand); color: white; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; transition: background 0.2s; }
         .vp-button:hover { background: var(--vp-c-brand-dark); }
         .vp-pager { display: flex; justify-content: space-between; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--vp-c-divider); }
@@ -100,31 +102,31 @@
             </ul>
         </div>
         <div class="vp-sidebar-group">
-            <div class="vp-sidebar-group-title">Hands-On</div>
+            <div class="vp-sidebar-group-title">Application Overview</div>
             <ul class="vp-sidebar-items">
                 <li><a href="inspect-app.html" >Inspect the App</a></li>
             </ul>
         </div>
         <div class="vp-sidebar-group">
-            <div class="vp-sidebar-group-title">Solo Admin Path</div>
+            <div class="vp-sidebar-group-title">Solo</div>
             <ul class="vp-sidebar-items">
-                <li><a href="add-picklist.html" >1. Add the Deferred Status</a></li>
-                <li><a href="promote-picklist.html" >2. Promote to Production</a></li>
+                <li><a href="add-picklist.html" >Add the Deferred Status</a></li>
+                <li><a href="promote-picklist.html" >Promote to Production</a></li>
             </ul>
         </div>
                 <div class="vp-sidebar-group">
-            <div class="vp-sidebar-group-title">Team Path</div>
+            <div class="vp-sidebar-group-title">Coordinated</div>
             <ul class="vp-sidebar-items">
-                <li><a href="team-path.html" >The Team Path</a></li>
+                <li><a href="team-path.html" >Coordinated Development</a></li>
             </ul>
         </div>
         <div class="vp-sidebar-group">
-            <div class="vp-sidebar-group-title">AI-Accelerated Path</div>
+            <div class="vp-sidebar-group-title">Agent Driven</div>
             <ul class="vp-sidebar-items">
-                <li><a href="afv-walkthrough.html" >3. Agentforce Vibes Walkthrough</a></li>
-                <li><a href="build-leaderboard.html" >4. Build the Leaderboard</a></li>
-                <li><a href="deploy-verify.html" >5. Deploy &amp; Verify</a></li>
-                <li><a href="promote-to-prod.html" >6. Promote to Production</a></li>
+                <li><a href="afv-walkthrough.html" >Agentforce Vibes Walkthrough</a></li>
+                <li><a href="build-leaderboard.html" >Build the Leaderboard</a></li>
+                <li><a href="deploy-verify.html" >Deploy &amp; Verify</a></li>
+                <li><a href="promote-to-prod.html" >Promote to Production</a></li>
             </ul>
         </div>
         <div class="vp-sidebar-group">
@@ -139,9 +141,9 @@
     <main class="vp-content">
 
         <h1>Agent &amp; App Development Workshop</h1>
-        <div class="vp-time-badge">&#128339; <strong>~2 hours</strong></div>
+        <div class="vp-time-badge">&#128339; <strong>~4 hours</strong></div>
 
-        <p>In this workshop, you'll walk two real development scenarios — a quick metadata change made entirely in the UI, and a full feature build using Agentforce Vibes. Both go through the same governed, sandbox-first pipeline to production.</p>
+        <p>In this workshop, you'll get hands-on with real development scenarios across different ways of working and building on the Salesforce Platform — all through the same governed, sandbox-first pipeline to production.</p>
 
         <h2>The scenario</h2>
 
@@ -155,47 +157,65 @@
             <img src="../images/dashboard-arrow.png" alt="The current dashboard with an arrow showing where the Top Learners widget will go" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
         </div>
 
-        <h2>The three development paths</h2>
+        <h2>The development paths</h2>
 
-        <p>There are 3 agent &amp; application development paths. This workshop covers <strong>two of them</strong>:</p>
+        <p>Development isn't one-size-fits-all — you choose how you work and how you develop, and every team is a blend of the two.</p>
 
+        <h3>How you work</h3>
         <div class="vp-features">
             <div class="vp-feature-card">
-                <h4>The Solo Admin Path</h4>
-                <p>For solo admins and small hybrid teams making surgical updates — UI copy tweaks, field changes, and quick config fixes.</p>
+                <h4>Solo</h4>
+                <p>Work independently for fast, isolated execution with minimal overhead.</p>
             </div>
             <div class="vp-feature-card">
-                <h4>The Team Path</h4>
-                <p>For small hybrid teams, multiple teams, and enterprise teams building large-scale features. Source-tracked development with built-in change management and release pipelines.</p>
-            </div>
-            <div class="vp-feature-card">
-                <h4>The AI-Accelerated Path</h4>
-                <p>For multiple teams and enterprise teams building complex, high-quality features using natural language. AI-accelerated development workflows.</p>
+                <h4>Coordinated</h4>
+                <p>Collaborate across teams to synchronize parallel changes.</p>
             </div>
         </div>
 
-        <div style="margin-bottom: 20px;">
-            <img src="../images/agent-app-dev-lifecycle.png" alt="Build, test, and deploy with Salesforce Agent & App Development lifecycle diagram" style="width: 100%; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+        <h3>How you develop</h3>
+        <div class="vp-features">
+            <div class="vp-feature-card">
+                <h4>Human Driven</h4>
+                <p>Use code or visual tools to build a solution.</p>
+            </div>
+            <div class="vp-feature-card">
+                <h4>Agent Driven</h4>
+                <p>Agents act on natural language intent to build solutions.</p>
+            </div>
         </div>
+
+        <p>This workshop focuses on the <strong>Solo</strong>, <strong>Coordinated</strong>, and <strong>Agent Driven</strong> paths.</p>
 
         <h2>Before the session</h2>
 
         <ol class="vp-activity-steps">
             <li>
                 <span class="vp-activity-step-num" style="background: var(--vp-c-text-3); font-size:11px;">PRE</span>
-                <span class="vp-activity-step-text"><strong>Setup</strong> — Sign up for your workshop org, log into the fullcopy sandbox, and enable Change Management</span>
+                <span class="vp-activity-step-text"><strong>Setup</strong> — Sign up for your workshop org and log into the fullcopy sandbox</span>
                 <span class="vp-activity-step-time">Before the session</span>
             </li>
         </ol>
 
         <h2>Workshop agenda</h2>
 
-        <div class="use-case-label solo">Use Case 1 — Solo Admin Path</div>
+        <p>The workshop is organized into paths. Everyone starts with the Application Overview, then works through the paths relevant to them.</p>
+
+        <div class="use-case-label overview">Application Overview</div>
+        <ol class="vp-activity-steps">
+            <li>
+                <span class="vp-activity-step-num">1</span>
+                <span class="vp-activity-step-text"><strong>Inspect the App</strong> — Tour the Learning Management app: explore Courses, Students, and Enrollments, and see the dashboard you'll be enhancing</span>
+                <span class="vp-activity-step-time">2 min</span>
+            </li>
+        </ol>
+
+        <div class="use-case-label solo">Solo</div>
         <ol class="vp-activity-steps">
             <li>
                 <span class="vp-activity-step-num">1</span>
                 <span class="vp-activity-step-text"><strong>Add the Deferred Status</strong> — Add a new picklist value to the Enrollment Status field directly in Setup, no code required</span>
-                <span class="vp-activity-step-time">12 min</span>
+                <span class="vp-activity-step-time">10 min</span>
             </li>
             <li>
                 <span class="vp-activity-step-num">2</span>
@@ -204,30 +224,34 @@
             </li>
         </ol>
 
-        <div class="use-case-label ai">Use Case 2 — AI-Accelerated Path</div>
+        <div class="use-case-label coordinated">Coordinated</div>
         <ol class="vp-activity-steps">
             <li>
-                <span class="vp-activity-step-num">3</span>
-                <span class="vp-activity-step-text"><strong>Inspect the App</strong> — Tour the Learning Management app: explore Courses, Students, and Enrollments, and see the dashboard you'll be enhancing</span>
-                <span class="vp-activity-step-time">2 min</span>
+                <span class="vp-activity-step-num">1</span>
+                <span class="vp-activity-step-text"><strong>Coordinated Development</strong> — See how teams operate at scale with DevOps Center: source-tracked development, built-in change management, and release pipelines</span>
+                <span class="vp-activity-step-time">5 min</span>
             </li>
+        </ol>
+
+        <div class="use-case-label ai">Agent Driven</div>
+        <ol class="vp-activity-steps">
             <li>
-                <span class="vp-activity-step-num">4</span>
+                <span class="vp-activity-step-num">1</span>
                 <span class="vp-activity-step-text"><strong>Agentforce Vibes Walkthrough</strong> — Launch Agentforce Vibes and get oriented with MCP servers, skills, rules, and the Metadata Explorer</span>
                 <span class="vp-activity-step-time">8 min</span>
             </li>
             <li>
-                <span class="vp-activity-step-num">5</span>
+                <span class="vp-activity-step-num">2</span>
                 <span class="vp-activity-step-text"><strong>Build the Leaderboard</strong> — Write a natural language prompt and let Agentforce Vibes generate the Apex and LWC code for the Top Learners widget</span>
                 <span class="vp-activity-step-time">7 min</span>
             </li>
             <li>
-                <span class="vp-activity-step-num">6</span>
+                <span class="vp-activity-step-num">3</span>
                 <span class="vp-activity-step-text"><strong>Verify</strong> — Open your sandbox and confirm the Top Learners widget appears on the dashboard</span>
-                <span class="vp-activity-step-time">5 min</span>
+                <span class="vp-activity-step-time">2 min</span>
             </li>
             <li>
-                <span class="vp-activity-step-num">7</span>
+                <span class="vp-activity-step-num">4</span>
                 <span class="vp-activity-step-text"><strong>Promote to Production</strong> — Open DX Inspector to review changed files, then promote from sandbox to production</span>
                 <span class="vp-activity-step-time">5 min</span>
             </li>
