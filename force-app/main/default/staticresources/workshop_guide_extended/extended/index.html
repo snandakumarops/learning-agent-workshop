@@ -66,6 +66,7 @@
         .use-case-label.ai { background: rgba(1,118,211,0.1); color: var(--vp-c-brand); }
         .use-case-label.overview { background: rgba(144,164,174,0.15); color: #5a6b75; }
         .use-case-label.coordinated { background: rgba(124,77,255,0.1); color: #6b3fd4; }
+        .use-case-label.governance { background: rgba(46,132,74,0.12); color: #1d6b3a; }
         .vp-button { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: var(--vp-c-brand); color: white; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; transition: background 0.2s; }
         .vp-button:hover { background: var(--vp-c-brand-dark); }
         .vp-pager { display: flex; justify-content: space-between; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--vp-c-divider); }
@@ -127,6 +128,12 @@
                 <li><a href="build-leaderboard.html" >Build the Leaderboard</a></li>
                 <li><a href="deploy-verify.html" >Deploy &amp; Verify</a></li>
                 <li><a href="promote-to-prod.html" >Promote to Production</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Data Governance</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="data-governance.html" >Data Mask &amp; Seed</a></li>
             </ul>
         </div>
         <div class="vp-sidebar-group">
@@ -254,6 +261,15 @@
                 <span class="vp-activity-step-num">4</span>
                 <span class="vp-activity-step-text"><strong>Promote to Production</strong> — Open DX Inspector to review changed files, then promote from sandbox to production</span>
                 <span class="vp-activity-step-time">5 min</span>
+            </li>
+        </ol>
+
+        <div class="use-case-label governance">Data Governance</div>
+        <ol class="vp-activity-steps">
+            <li>
+                <span class="vp-activity-step-num">1</span>
+                <span class="vp-activity-step-text"><strong>Data Mask &amp; Seed</strong> — Add a custom object to a masking policy, configure library-based field masking, and run it to protect PII in your sandbox</span>
+                <span class="vp-activity-step-time">15 min</span>
             </li>
         </ol>
 

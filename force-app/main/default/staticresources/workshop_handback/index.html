@@ -37,6 +37,7 @@
         .tag { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; padding: 2px 8px; border-radius: 4px; margin-right: 6px; }
         .tag.done { background: rgba(46,132,74,0.12); color: var(--success); }
         .tag.open { background: rgba(233,162,17,0.15); color: #b07905; }
+        .tag.later { background: rgba(144,164,174,0.18); color: #5a6b75; }
         .tag.info { background: rgba(1,118,211,0.1); color: var(--brand); }
         .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 14px; }
         .callout.warn { background: rgba(233,162,17,0.08); border-left: 4px solid var(--warning); }
@@ -65,7 +66,7 @@
         <a href="#extended">Extended workbook</a>
         <a href="#mini">Mini workbook</a>
         <a href="#decisions">Decisions &amp; verifications</a>
-        <a href="#open">Feedback-on-feedback &amp; open questions</a>
+        <a href="#open">Notes &amp; parking lot</a>
     </div>
 
     <div class="card links">
@@ -131,6 +132,15 @@
             <li>Kept the DX Inspector flow for now (see open question H1).</li>
         </ul>
 
+        <h3 class="pg">Data Governance <span class="file">data-governance.html — NEW</span></h3>
+        <ul>
+            <li><strong>New lab added: "Working with Policies in Data Mask &amp; Seed"</strong> (deck slide 65, 15 min) — the last blocker to publishing. Sits as its own <strong>Data Governance</strong> section between Agent Driven and Wrap Up.</li>
+            <li>Walks through opening the <em>Mask Customer Information</em> policy, adding the Student custom object, configuring library-based field masking, saving, running, and verifying.</li>
+            <li>Includes a prominent <strong>"can only be run in a Sandbox / irreversible"</strong> warning and a prerequisite callout.</li>
+            <li>Wired into the sidebar (all pages), the Overview agenda, and the pager flow (Promote to Production → Data Mask &amp; Seed → What's Next).</li>
+            <li>Content matched to the source canvas, including a screenshot of the production "Run Now" tooltip that reinforces the sandbox-only guardrail.</li>
+        </ul>
+
         <h3 class="pg">Wrap Up <span class="file">whats-next.html, troubleshooting.html</span></h3>
         <ul>
             <li><strong>Fixed navigation bug</strong> — both pagers had pointed to Overview; corrected to the real order and removed the dangling "Next" on the final page.</li>
@@ -141,7 +151,7 @@
         <h3 class="pg">Across all pages</h3>
         <ul>
             <li>Removed step numbers from sidebar links, pager labels, and page titles (kept the numbered circles inside each exercise).</li>
-            <li>Sidebar section renames applied consistently across all 12 pages.</li>
+            <li>Sidebar section renames applied consistently across all pages.</li>
         </ul>
     </div>
 
@@ -204,8 +214,8 @@
 
     <!-- ============ OPEN ============ -->
     <div class="card" id="open">
-        <h2><span class="num">?</span> Notes &amp; open questions</h2>
-        <p class="section-sub">A few items we looked into while working through the feedback, plus decisions that still need an owner.</p>
+        <h2><span class="num">?</span> Notes &amp; parking lot</h2>
+        <p class="section-sub">A few items we looked into while working through the feedback, plus a parking lot of future improvements. Nothing here blocks the staged version from going live.</p>
 
         <h3 class="pg">Items we investigated</h3>
         <ul>
@@ -214,23 +224,15 @@
             <li><span class="tag info">Note</span> <strong>Dashboard screenshot</strong> — we confirmed the saved dashboard screenshot is used later (it's pasted into the Build prompt to mark widget placement), so we kept it and left the existing "you'll use this later" callout.</li>
         </ul>
 
-        <h3 class="pg">Open questions (need a decision / owner)</h3>
+        <h3 class="pg">Parking lot (not blocking — future improvements)</h3>
+        <p class="section-sub">None of these are required for the staged version to go live. Capturing them so they're not lost.</p>
         <ul>
-            <li><span class="tag open">Open</span> <strong>Promote via Agentforce Vibes?</strong> — the suggestion to have Vibes do the promote (instead of DX Inspector) is a good one; we left the DX Inspector flow in place for now because the deck still shows the agent working <em>inside</em> the DX Inspector / DevOps Center pipeline. Worth a product decision, plus confirming Vibes can deploy to prod.</li>
-            <li><span class="tag open">Open</span> <strong>Demo link redirect</strong> — the workbook links the correct Navattic URL, but Navattic itself redirects it to a different guide. This can't be fixed from the workbook; it needs the Navattic project reconfigured or a corrected share link.</li>
-            <li><span class="tag open">Open</span> <strong>Governance in the agenda</strong> — the agenda could include Governance, but there's currently no Governance section in the workbook (it's in the deck only). We left it out for now to avoid pointing to a section that doesn't exist yet.</li>
-            <li><span class="tag open">Open</span> <strong>Move the scenario off the Overview</strong> — moving the CEE scenario + task requests into the individual sections is a good direction; we parked it as a larger content reorganization for a follow-up pass.</li>
+            <li><span class="tag later">Later</span> <strong>Promote via Agentforce Vibes?</strong> — having Vibes do the promote (instead of DX Inspector) is a good idea; left the DX Inspector flow in place for now since the deck still shows the agent working <em>inside</em> the DX Inspector / DevOps Center pipeline. Worth revisiting, plus confirming Vibes can deploy to prod.</li>
+            <li><span class="tag later">Later</span> <strong>Demo link redirect</strong> — the workbook links the correct Navattic URL, but Navattic itself redirects it to a different guide. Can't be fixed from the workbook; needs the Navattic project reconfigured or a corrected share link.</li>
+            <li><span class="tag later">Later</span> <strong>Move the scenario off the Overview</strong> — moving the CEE scenario + task requests into the individual sections is a good direction; parked as a larger content reorganization for a follow-up pass.</li>
+            <li><span class="tag later">Later</span> <strong>List-view screenshots</strong> — the Inspect list-view images show only the ID field. Updating them requires changing the workshop-org data, cutting a new org template, and updating OrgFarm, so it's tracked separately. <em>(The Agentforce Vibes UI screenshots have already been refreshed for Vibes 2.0.)</em></li>
+            <li><span class="tag later">Later</span> <strong>DevOps Center hands-on exercise</strong> — flagged in the feedback as a separate effort; deferred to future work along with a broader full deck-alignment pass.</li>
         </ul>
-
-        <div class="callout warn">
-            <div class="t">Still to do (outside this pass)</div>
-            <p><strong>Screenshots</strong> — the Inspect list-view images currently show only the ID field. Updating them requires changing the data in the workshop org, cutting a new org template, and updating OrgFarm, so it's tracked separately from this pass. <em>(The Agentforce Vibes UI screenshots have already been refreshed for Vibes 2.0.)</em></p>
-        </div>
-
-        <div class="callout tip">
-            <div class="t">Explicitly out of scope</div>
-            <p>Building a hands-on <strong>DevOps Center</strong> exercise (flagged in the feedback as separate) and a broader full deck-alignment rewrite are deferred to future work.</p>
-        </div>
     </div>
 
     <p class="foot">Generated for the AAHD workshop team · changes live on the staging preview linked above.</p>

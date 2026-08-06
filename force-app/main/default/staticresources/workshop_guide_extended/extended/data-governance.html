@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Governance — Agent & App Development Workshop</title>
+    <style>
+        :root {
+            --vp-c-brand: #0176d3;
+            --vp-c-brand-light: #1b96ff;
+            --vp-c-brand-dark: #014486;
+            --vp-c-bg: #ffffff;
+            --vp-c-bg-soft: #f6f6f7;
+            --vp-c-bg-mute: #e2e2e3;
+            --vp-c-text-1: #213547;
+            --vp-c-text-2: #476582;
+            --vp-c-text-3: #90a4ae;
+            --vp-c-divider: #e2e2e3;
+            --vp-c-tip: #0176d3;
+            --vp-c-warning: #e9a211;
+            --vp-c-danger: #e0234e;
+            --vp-c-success: #2e844a;
+            --vp-sidebar-width: 272px;
+            --vp-nav-height: 64px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--vp-c-text-1);
+            background: var(--vp-c-bg);
+            line-height: 1.7;
+        }
+
+        .vp-nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            height: var(--vp-nav-height);
+            background: var(--vp-c-bg);
+            border-bottom: 1px solid var(--vp-c-divider);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px; z-index: 100;
+        }
+        .vp-nav-brand {
+            display: flex; align-items: center; gap: 12px;
+            text-decoration: none; color: var(--vp-c-text-1);
+            font-weight: 600; font-size: 16px;
+        }
+
+        .vp-layout {
+            display: flex; margin-top: var(--vp-nav-height);
+            min-height: calc(100vh - var(--vp-nav-height));
+        }
+
+        .vp-sidebar {
+            position: fixed; top: var(--vp-nav-height); left: 0;
+            width: var(--vp-sidebar-width);
+            height: calc(100vh - var(--vp-nav-height));
+            overflow-y: auto; padding: 24px 20px;
+            border-right: 1px solid var(--vp-c-divider);
+            background: var(--vp-c-bg);
+        }
+        .vp-sidebar-group { margin-bottom: 24px; }
+        .vp-sidebar-group-title {
+            font-size: 13px; font-weight: 700; color: var(--vp-c-text-1);
+            text-transform: uppercase; letter-spacing: 0.4px;
+            margin-bottom: 8px; padding: 4px 0;
+        }
+        .vp-sidebar-items { list-style: none; }
+        .vp-sidebar-items a {
+            display: block; padding: 6px 12px; font-size: 14px;
+            color: var(--vp-c-text-2); text-decoration: none;
+            border-radius: 6px; transition: all 0.15s;
+        }
+        .vp-sidebar-items a:hover { background: var(--vp-c-bg-soft); color: var(--vp-c-text-1); }
+        .vp-sidebar-items a.active {
+            background: rgba(1, 118, 211, 0.08); color: var(--vp-c-brand); font-weight: 600;
+        }
+
+        .vp-content {
+            margin-left: var(--vp-sidebar-width);
+            flex: 1; max-width: 780px; padding: 32px 48px 96px;
+        }
+        .vp-content h1 {
+            font-size: 32px; font-weight: 700; line-height: 1.25;
+            margin-bottom: 8px; letter-spacing: -0.02em;
+        }
+        .vp-content h2 {
+            font-size: 24px; font-weight: 600; margin-top: 48px; margin-bottom: 16px;
+            padding-bottom: 12px; border-bottom: 1px solid var(--vp-c-divider);
+        }
+        .vp-content h3 {
+            font-size: 18px; font-weight: 600; margin-top: 32px; margin-bottom: 12px;
+        }
+        .vp-content p { margin-bottom: 16px; font-size: 15px; }
+        .vp-content ul, .vp-content ol { margin-bottom: 16px; padding-left: 24px; }
+        .vp-content li { margin-bottom: 8px; font-size: 15px; }
+        .vp-content code {
+            font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+            font-size: 13px; background: var(--vp-c-bg-soft);
+            padding: 2px 6px; border-radius: 4px; color: var(--vp-c-brand-dark);
+        }
+
+        .vp-time-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 14px; color: var(--vp-c-text-2); margin-bottom: 24px;
+        }
+
+        .vp-callout {
+            border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 14px;
+        }
+        .vp-callout-title { font-weight: 700; margin-bottom: 6px; font-size: 14px; }
+        .vp-callout p { font-size: 14px; margin-bottom: 8px; }
+        .vp-callout p:last-child { margin-bottom: 0; }
+        .vp-callout.tip { background: rgba(1, 118, 211, 0.06); border-left: 4px solid var(--vp-c-tip); }
+        .vp-callout.tip .vp-callout-title { color: var(--vp-c-tip); }
+        .vp-callout.warning { background: rgba(233, 162, 17, 0.06); border-left: 4px solid var(--vp-c-warning); }
+        .vp-callout.warning .vp-callout-title { color: var(--vp-c-warning); }
+        .vp-callout.danger { background: rgba(224, 35, 78, 0.06); border-left: 4px solid var(--vp-c-danger); }
+        .vp-callout.danger .vp-callout-title { color: var(--vp-c-danger); }
+
+        .step-block { margin-bottom: 32px; }
+        .step-block h3 { display: flex; align-items: center; gap: 10px; }
+        .step-num {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 28px; height: 28px; border-radius: 50%;
+            background: var(--vp-c-brand); color: white;
+            font-size: 13px; font-weight: 700; flex-shrink: 0;
+        }
+
+        .vp-pager {
+            display: flex; justify-content: space-between;
+            margin-top: 48px; padding-top: 24px;
+            border-top: 1px solid var(--vp-c-divider);
+        }
+        .vp-pager a {
+            display: flex; flex-direction: column; padding: 12px 16px;
+            border: 1px solid var(--vp-c-divider); border-radius: 8px;
+            text-decoration: none; transition: border-color 0.2s; min-width: 200px;
+        }
+        .vp-pager a:hover { border-color: var(--vp-c-brand); }
+        .vp-pager .pager-label {
+            font-size: 11px; font-weight: 600; color: var(--vp-c-text-3);
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .vp-pager .pager-title {
+            font-size: 14px; font-weight: 500; color: var(--vp-c-brand); margin-top: 4px;
+        }
+        .vp-pager .prev { text-align: left; }
+        .vp-pager .next { text-align: right; margin-left: auto; }
+
+        @media (max-width: 960px) {
+            .vp-sidebar { display: none; }
+            .vp-content { margin-left: 0; padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="vp-nav">
+    <a href="index.html" class="vp-nav-brand">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" alt="Salesforce" height="24" style="height:24px;" />
+        Agent & App Development Workshop
+    </a>
+    <div></div>
+</nav>
+
+<div class="vp-layout">
+
+    <aside class="vp-sidebar">
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Workshop</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="index.html" >Overview</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Before the Session</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="setup.html" >Setup</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Application Overview</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="inspect-app.html" >Inspect the App</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Solo</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="add-picklist.html" >Add the Deferred Status</a></li>
+                <li><a href="promote-picklist.html" >Promote to Production</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Coordinated</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="team-path.html" >Coordinated Development</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Agent Driven</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="afv-walkthrough.html" >Agentforce Vibes Walkthrough</a></li>
+                <li><a href="build-leaderboard.html" >Build the Leaderboard</a></li>
+                <li><a href="deploy-verify.html" >Deploy &amp; Verify</a></li>
+                <li><a href="promote-to-prod.html" >Promote to Production</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Data Governance</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="data-governance.html" class="active">Data Mask &amp; Seed</a></li>
+            </ul>
+        </div>
+        <div class="vp-sidebar-group">
+            <div class="vp-sidebar-group-title">Wrap Up</div>
+            <ul class="vp-sidebar-items">
+                <li><a href="whats-next.html" >What's Next</a></li>
+                <li><a href="troubleshooting.html" >Troubleshooting</a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <main class="vp-content">
+
+        <h1>Working with Policies in Data Mask &amp; Seed</h1>
+        <div class="vp-time-badge">&#128339; <strong>15 minutes</strong></div>
+
+        <p>Before real work happens in a sandbox, sensitive production data needs to be masked. In this lab you'll open an existing <strong>Data Mask &amp; Seed</strong> policy, add a custom object to it, configure field-level masking using libraries, save, and run the policy against your sandbox data.</p>
+
+        <div class="vp-callout tip">
+            <div class="vp-callout-title">Prerequisite</div>
+            <p>You must be working in a <strong>sandbox</strong> org with Data Mask &amp; Seed installed and the <strong>Student</strong> custom object available. Confirm you are in your sandbox before proceeding.</p>
+        </div>
+
+        <h2>Open the policy</h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">1</span> Open Data Mask &amp; Seed</h3>
+            <p>Click the <strong>App Launcher</strong> (grid icon, top-left corner). In the Quick Find search box, type <strong>Data Mask &amp; Seed</strong> and select it from the Apps list.</p>
+            <p>You'll land on the <strong>Home</strong> tab showing features: Bypassing Automations, Proactive PII Detection, and Maintain Field Value Distribution.</p>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">2</span> View the Policies list</h3>
+            <p>Click the <strong>Policies</strong> tab in the top navigation bar. The <strong>All Policies</strong> list view appears showing all configured masking policies. Locate <strong>Mask Customer Information</strong> and click its name to open it.</p>
+            <p>You should see the policy description, Locale, Run on Refresh setting, Schedule, and the Objects already configured (Contact and Lead).</p>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">3</span> Review the existing policy</h3>
+            <p>Take a moment to review the current configuration:</p>
+            <ul>
+                <li><strong>Locale:</strong> US English</li>
+                <li><strong>Run on Refresh:</strong> No</li>
+                <li><strong>Schedule:</strong> No Schedule</li>
+                <li><strong>Objects:</strong> Contact &amp; Lead</li>
+            </ul>
+            <p>The first object is selected by default. Fields show <strong>Categories</strong>, <strong>Mask Unique</strong>, and <strong>Mask With</strong> settings. Fields set to <code>Skip</code> won't be masked.</p>
+        </div>
+
+        <h2>Add and configure the Student object</h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">4</span> Enter edit mode</h3>
+            <p>Click the <strong>Edit</strong> button (upper-right corner). The button changes to <strong>Save</strong>, the field-level dropdowns become active, the <strong>Add Filters</strong> button becomes available per object, and <strong>+ Add</strong> appears in the Objects panel.</p>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">5</span> Add the Student custom object</h3>
+            <p>In the <strong>Objects</strong> panel on the left, click <strong>+ Add</strong>. In the <strong>Add an Object</strong> dialog:</p>
+            <ol>
+                <li>In Quick Find, change Object Type to <strong>Custom</strong> and type <code>student</code></li>
+                <li>The <strong>Student</strong> object appears (Type: Custom)</li>
+                <li>Click the <strong>+</strong> icon next to Student</li>
+                <li>Click <strong>Add</strong> to confirm</li>
+            </ol>
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">6</span> Configure field masking for Student</h3>
+            <p>The Student object has three fields to mask:</p>
+            <ul>
+                <li><strong>First Name</strong> (<code>First_Name__c</code>) — Text(80)</li>
+                <li><strong>Last Name</strong> (<code>Last_Name__c</code>) — Text(80)</li>
+                <li><strong>Email</strong> (<code>Email__c</code>) — Email (External ID)</li>
+            </ul>
+            <p><strong>Mask First Name:</strong> find the First Name field and, in the Mask With dropdown, select the <strong>First Name</strong> library.</p>
+            <p><strong>Mask Last Name:</strong> find the Last Name field and, in the Mask With dropdown, select the <strong>Last Name</strong> library.</p>
+            <p><strong>Mask Email:</strong> the Email field is already configured to Mask With the <strong>Email</strong> library. When you add a new object to a policy, Data Mask &amp; Seed automatically scans its fields and recommends masking for fields it identifies as PII.</p>
+            <div class="vp-callout tip">
+                <div class="vp-callout-title">Using libraries</div>
+                <p>Libraries provide realistic replacement values that maintain data format integrity. For text name fields, a First Name or Last Name library generates plausible replacement names; the Email library generates valid-format email addresses. You can view and manage them under the <strong>Custom Libraries</strong> tab.</p>
+            </div>
+        </div>
+
+        <h2>Save and run</h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">7</span> Save the policy</h3>
+            <p>Click <strong>Save</strong> (upper-right corner). The policy exits edit mode. Confirm that <strong>Student</strong> now appears alongside Contact and Lead in the Objects panel.</p>
+        </div>
+
+        <div class="vp-callout danger">
+            <div class="vp-callout-title">&#9888;&#65039; Data Mask &amp; Seed can only be run in a Sandbox</div>
+            <p>A policy can be <em>configured</em> in production, but it can only be <strong>run</strong> in a Sandbox. Running the policy is <strong>irreversible</strong> for that sandbox refresh cycle — the masked values replace the original data in your sandbox. Make sure you are in your sandbox before continuing.</p>
+            <img src="../images/datamask-run-sandbox-only.jpg" alt="On a production instance, the Run Now button is disabled with the message: This action isn't available on production instance." style="max-width: 520px; width: 100%; margin-top: 12px; border-radius: 8px; border: 1px solid var(--vp-c-divider);" />
+        </div>
+
+        <div class="step-block">
+            <h3><span class="step-num">8</span> Run the policy</h3>
+            <p>Click <strong>Run Now</strong> (upper-right corner) and confirm in the dialog. The masking job will:</p>
+            <ul>
+                <li>Bypass sandbox automations (workflow rules, triggers, validation rules)</li>
+                <li>Apply masking to all configured fields on Contact, Lead, and Student</li>
+                <li>Maintain field value distribution</li>
+            </ul>
+        </div>
+
+        <h2>Verify</h2>
+
+        <div class="step-block">
+            <h3><span class="step-num">9</span> Confirm the masking</h3>
+            <ul>
+                <li>Check the <strong>Last Run Date</strong> on the policy</li>
+                <li>Navigate to Student records and verify First Name, Last Name, and Email are masked</li>
+                <li>Review any error messages if records were skipped</li>
+            </ul>
+        </div>
+
+        <h2>Summary</h2>
+        <p>In this lab you:</p>
+        <ol>
+            <li>Navigated to Data Mask &amp; Seed via the App Launcher</li>
+            <li>Located and opened the <strong>Mask Customer Information</strong> policy</li>
+            <li>Entered edit mode and added the <strong>Student</strong> custom object</li>
+            <li>Configured masking on First Name, Last Name, and Email using library-based masking</li>
+            <li>Saved the updated policy</li>
+            <li>Ran the policy to apply masking to sandbox data</li>
+        </ol>
+
+        <div class="vp-callout tip">
+            <div class="vp-callout-title">Why this matters</div>
+            <p>Masking PII in a sandbox is the guardrail that lets teams build and test safely against production-like data — without exposing real customer information.</p>
+        </div>
+
+        <nav class="vp-pager">
+            <a href="promote-to-prod.html" class="prev">
+                <span class="pager-label">Previous</span>
+                <span class="pager-title">Promote to Production</span>
+            </a>
+            <a href="whats-next.html" class="next">
+                <span class="pager-label">Next</span>
+                <span class="pager-title">What's Next</span>
+            </a>
+        </nav>
+
+    </main>
+</div>
+
+</body>
+</html>
